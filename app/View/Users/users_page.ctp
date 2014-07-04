@@ -3,10 +3,11 @@
 
 <!--//follow and unfollow button -->
 <?php
+$check_follow="Follow";
 	echo $this->Form->create('follow');
 
 	echo "<input type='hidden' name='username' value='".$page_data['Twitter_users']['username']."'/>";
-	echo $this->Js->submit( 'Follow', array(
+	echo $this->Js->submit( $check_follow, array(
 
 	'url' => '/Users/follow',    
     'id' => 'submit',
@@ -29,6 +30,7 @@
 		{
 			$('input:hidden[name="unfollow"]').attr('name', 'username');
 			$('#submit').val('Follow');
+
 		}
 	}
 

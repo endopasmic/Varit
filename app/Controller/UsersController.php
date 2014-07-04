@@ -48,10 +48,13 @@ class UsersController extends AppController{
 					'follow_user' => $user
 					));
 			}
+
+			//unfollow
 			else if($user=$_POST['unfollow'])
 			{
+
 					$this->follow->deleteAll(array(
-						'follow.username' => $user
+						'follow.follow_user' => $user
 					));
 			}
 	}
@@ -61,7 +64,7 @@ class UsersController extends AppController{
 	//this is unfollow system
 	public function unfollow()
 	{
-		$this->follow->deleteAll(array(
+	$this->follow->deleteAll(array(
 						'follow.username' => 'endopasmic'
 					));
 	}
