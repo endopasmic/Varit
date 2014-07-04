@@ -66,6 +66,8 @@ class TweetsController extends AppController{
     public function register() {
     	//set layout
     	$this->layout = ('twitterlayout');
+    	$username = $this->Session->read('username');
+		$this->set('username',$username);
 
         if($this->request->is('post')) 
         {
@@ -74,6 +76,13 @@ class TweetsController extends AppController{
             //var_dump($this->Twitter);
             if ($this->Twitter_users->save($this->request->data) ) {
                 $this->Session->setFlash(__('Your post has been saved.'));
+
+                $this->follow->create();
+                $this->follow->save(array(
+                		'username' => $this->request->data['Twitter_users']['username'],
+                		'follow_user' => $this->request->data['Twitter_users']['username']
+                	));
+
                 return $this->redirect(array('action' => 'index'));
             }
             $this->Session->setFlash(__('Unable to add your post.'));
@@ -93,12 +102,17 @@ class TweetsController extends AppController{
 		
 		//set json
 		$json = $this->Twitter_post->find('all');
+		$json_follow = $this->follow->find('all');
 		$json_user =$this->Twitter_users->find('all',array(
 					'user_id' => array('user_id')
 			));	
+		
 		$this->set(compact("json",'json_user'));
 		$this->set(compact("json_user"));
-		$this->set('_serialize', array('json','json_user') );
+		$this->set(compact("json_follow"));
+		
+		$this->set('_serialize', array('json','json_user','json_follow') );
+
 
 
 		if ($this->request->is('post')) 

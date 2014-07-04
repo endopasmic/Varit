@@ -30,7 +30,7 @@ $(document).ready(function(){
 			    items.push(
 			    			"<div>"
 			    				   +"  "+
-			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+use_user_id+"'>@" 
+			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+username+"'>@" 
 			    				   +username+"</a></span> <br/>"
 			    				   +"<span name=''>"+tweet+"</span><br/>"+
 			    				    "<button onclick=\"reply_tweet(" + id + ", '" + username+"');\">REPLY</button>"

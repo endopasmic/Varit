@@ -17,28 +17,16 @@ class UsersController extends AppController{
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 	//this is userpage system create page by user_id and send user data to view
-	public function usersPage($user_id = null)
+	public function usersPage($pageuser= null)
 	{
 		//set layout,username
 		$this->layout = ('twitterlayout');
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
+
 		//setdata
-		$this->set('page_data',$this->Twitter_users->findByuser_id($user_id));
-		$this->set('page_id',$user_id);
+		$this->set('page_data',$this->Twitter_users->findByusername($pageuser));
 
-		//set json
-		$json = $this->Twitter_post->find(array(
-				'condition' => array('Twitter_post.username' => $username)
-			));
-		$this->set(compact("json",'json_user'));
-		$this->set('_serialize', array('json') );
-
-
-		if ($this->request->is('post')) 
-		 {
-		 	return $this->redirect(array('action' => 'tweet'));
-		 }
 
 	}
 
@@ -48,19 +36,18 @@ class UsersController extends AppController{
 	public function follow()
 	{
 		$this->layout = ('twitterlayout');
+		$username = $this->Session->read('username');
+		$this->set('username',$username);
 		//POSTでセーブ
-
-		$user_id=$_POST['user_id'];
+		if($this->request->is('post'))
+		{
+			$user=$_POST['username'];
 			$this->follow->create();
 			$this->follow->save(array(
-				'follow_user' => $user_id
+				'username' => $username,
+				'follow_user' => $user
 				));
-			//echo "<script>alert('登録成功');</script>";		
-
-		
-
-
-	
+		}
 	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
