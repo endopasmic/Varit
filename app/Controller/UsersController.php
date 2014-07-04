@@ -26,6 +26,7 @@ class UsersController extends AppController{
 
 		//setdata
 		$this->set('page_data',$this->Twitter_users->findByusername($pageuser));
+		$this->set('follow_id',$this->follow->findByid($pageuser));
 
 
 	}
@@ -38,16 +39,21 @@ class UsersController extends AppController{
 		$this->layout = ('twitterlayout');
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
-		//POSTでセーブ
-		if($this->request->is('post'))
-		{
-			$user=$_POST['username'];
-			$this->follow->create();
-			$this->follow->save(array(
-				'username' => $username,
-				'follow_user' => $user
-				));
-		}
+
+			if($user=$_POST['username'])
+			{	
+				$this->follow->create();
+				$this->follow->save(array(
+					'username' => $username,
+					'follow_user' => $user
+					));
+			}
+			else if($user=$_POST['unfollow'])
+			{
+					$this->follow->deleteAll(array(
+						'follow.username' => $user
+					));
+			}
 	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +61,9 @@ class UsersController extends AppController{
 	//this is unfollow system
 	public function unfollow()
 	{
-
+		$this->follow->deleteAll(array(
+						'follow.username' => 'endopasmic'
+					));
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////	

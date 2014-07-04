@@ -5,20 +5,21 @@
 var username;
 var use_user_id;
 var user_regis;
+var follow_user;
 $(document).ready(function(){
 
 			//get json file
 			$.getJSON( "/CakePHP/Tweets/getTweet.json", function( data ) {
 			  var items = [];
-			  //seperate json in to normal form 
-
+			  
+			  	//get tweet data
 			  	$.each( data.json, function(key,value) {
-			  	//sperated json into value 
-			  	username = value.Twitter_post.username;			  	
+			  	//sperated json into value 	  	
 			  	id = value.Twitter_post.id;
+			  	username = value.Twitter_post.username;
 			  	var tweet = value.Twitter_post.tweet;
-			  	console.log(username);
-
+			  	
+			  	//get user data
 			  	$.each( data.json_user, function(key,value) {
 			  	
 			  	var user_id = value.Twitter_users.user_id;
@@ -27,7 +28,17 @@ $(document).ready(function(){
 			  	 {use_user_id=user_id;}
 
 			 	 });
-			    items.push(
+			  	
+				//get follow data
+			  	$.each( data.json_follow, function(key,value) {
+			  	
+			  	var follow_id = value.follow.id;
+			  	 follow_byuser = value.follow.follow_user;
+			  	 follow_user = value.follow.username;
+
+			  	if(follow_byuser==username)
+			  	{
+			    	items.push(
 			    			"<div>"
 			    				   +"  "+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+username+"'>@" 
@@ -37,12 +48,14 @@ $(document).ready(function(){
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
 			    		);
-
-			    //delete
-			    if(username=="<?php echo $username ?>")
-			    {
-			    	items.push("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
-			    }
+				
+					    //delete
+					    if(username=="<?php echo $username ?>")
+					    {
+					    	items.push("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
+					    }
+				}
+				});		
 			  });//end each		 
 			  $("#get_data").html( items.join("") );
 			});

@@ -102,7 +102,9 @@ class TweetsController extends AppController{
 		
 		//set json
 		$json = $this->Twitter_post->find('all');
-		$json_follow = $this->follow->find('all');
+		$json_follow = $this->follow->find('all',array(
+				'conditions' => array('follow.username' => $username)
+			));
 		$json_user =$this->Twitter_users->find('all',array(
 					'user_id' => array('user_id')
 			));	
@@ -197,6 +199,7 @@ class TweetsController extends AppController{
 		$this->layout = ('twitterlayout');
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
+
 		if($this->request->is('post'))
 		{
 			$delete_id = $_POST['delete_id'];

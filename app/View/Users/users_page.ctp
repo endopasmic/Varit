@@ -6,17 +6,33 @@
 	echo $this->Form->create('follow');
 
 	echo "<input type='hidden' name='username' value='".$page_data['Twitter_users']['username']."'/>";
-	echo $this->Js->submit( 'tweet', array(
+	echo $this->Js->submit( 'Follow', array(
 
 	'url' => '/Users/follow',    
-    'id' => 'submit'
+    'id' => 'submit',
+    'complete' => 'update();'
   
 	)); 
 	echo $this->Form->end();
 
 ?>
-<div id='submit'></div>
+<script type="text/javascript">
+	function update()
+	{
+		if($('#submit').val()=='Follow')
+		{
+			$('input:hidden[name="username"]').attr('name', 'unfollow');
+			$('#submit').val('Unfollow');
+		}
+		
+		else if($('#submit').val()=='Unfollow')
+		{
+			$('input:hidden[name="unfollow"]').attr('name', 'username');
+			$('#submit').val('Follow');
+		}
+	}
 
+</script>
 <?php
 //show username
  echo "<br/>";
@@ -63,10 +79,11 @@ $(document).ready(function(){
 			  	//get follow data
 			  	$.each( data.json_follow, function(key,value) {
 			  	
-			  	var follow_id = value.follow.follow_id;
-			  	 follow_user = value.follow.follow_user; 
+			  	var follow_id = value.follow.id;
+			  	 follow_byuser = value.follow.follow_user;
+			  	 follow_user = value.follow.username;
 
-			  	if(username==follow_user)
+			  	if("<?php echo $page_data['Twitter_users']['username']; ?>"==username)
 			  	{
 			    	items.push(
 			    			"<div>"
