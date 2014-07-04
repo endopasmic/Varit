@@ -45,14 +45,14 @@ class UsersController extends AppController{
 				$this->follow->create();
 				$this->follow->save(array(
 					'username' => $username,
-					'follow_user' => $user
+					'follow_user' => $user,
+					'status' => 'TRUE'
 					));
 			}
 
 			//unfollow
 			else if($user=$_POST['unfollow'])
 			{
-
 					$this->follow->deleteAll(array(
 						'follow.follow_user' => $user
 					));

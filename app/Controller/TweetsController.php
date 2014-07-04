@@ -115,8 +115,6 @@ class TweetsController extends AppController{
 		
 		$this->set('_serialize', array('json','json_user','json_follow') );
 
-
-
 		if ($this->request->is('post')) 
 		 {
 		 	return $this->redirect(array('action' => 'tweet'));

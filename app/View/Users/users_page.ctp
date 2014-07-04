@@ -1,13 +1,14 @@
 <!-- this is view -->
 <h1>This is <?php  echo "@".$page_data['Twitter_users']['username']; ?> page</h1>
 
+
 <!--//follow and unfollow button -->
 <?php
-$check_follow="Follow";
+//$check_follow="Follow";
 	echo $this->Form->create('follow');
 
 	echo "<input type='hidden' name='username' value='".$page_data['Twitter_users']['username']."'/>";
-	echo $this->Js->submit( $check_follow, array(
+	echo $this->Js->submit( 'Follow', array(
 
 	'url' => '/Users/follow',    
     'id' => 'submit',
@@ -17,24 +18,28 @@ $check_follow="Follow";
 	echo $this->Form->end();
 
 ?>
+<div id='check'>check</div>
 <script type="text/javascript">
+
 	function update()
 	{
 		if($('#submit').val()=='Follow')
-		{
-			$('input:hidden[name="username"]').attr('name', 'unfollow');
+		{	
+			$('input:hidden[name="unfollow"]').attr('name', 'username');
 			$('#submit').val('Unfollow');
 		}
 		
 		else if($('#submit').val()=='Unfollow')
 		{
-			$('input:hidden[name="unfollow"]').attr('name', 'username');
-			$('#submit').val('Follow');
 
+			$('input:hidden[name="username"]').attr('name', 'unfollow');
+			$('#submit').val('Follow');
 		}
 	}
 
 </script>
+
+
 <?php
 //show username
  echo "<br/>";
@@ -55,6 +60,7 @@ var username;
 var use_user_id;
 var user_regis;
 var follow_user;
+ var follow_status
 $(document).ready(function(){
 			//get json file
 			$.getJSON( "/CakePHP/Tweets/getTweet.json", function( data ) {
@@ -63,7 +69,7 @@ $(document).ready(function(){
 
 			  	//get tweet data
 			  	$.each( data.json, function(key,value) {
-			  	//sperated json into value 	  	
+	
 			  	id = value.Twitter_post.id;
 			  	username = value.Twitter_post.username;
 			  	var tweet = value.Twitter_post.tweet;
@@ -84,6 +90,7 @@ $(document).ready(function(){
 			  	var follow_id = value.follow.id;
 			  	 follow_byuser = value.follow.follow_user;
 			  	 follow_user = value.follow.username;
+			  	 follow_status = value.follow.status;
 
 			  	if("<?php echo $page_data['Twitter_users']['username']; ?>"==username)
 			  	{
@@ -107,6 +114,19 @@ $(document).ready(function(){
 				});		
 			  });//end each		 
 			  $("#get_data").html( items.join("") );
+			  
+			  if(follow_status=="TRUE"&&follow_byuser=="<?php echo $page_data['Twitter_users']['username'];  ?>")
+			 
+			 	{
+			 		$('#submit').val('Unfollow');
+			 		$('input:hidden[name="username"]').attr('name', 'unfollow');
+			 	}	
+	  			else
+	  			{
+	  				$('#submit').val('Follow');
+	  				$('input:hidden[name="unfollow"]').attr('name', 'username');
+	  			}					
+
 			});
 	/*
 	$('input').click(function(){
@@ -126,6 +146,11 @@ function reply_tweet(id,username)
 <div id="get_data"></div>
 <div id="sending-js-submit"></div>
 <div id="result-js-submit"></div>
+
+
+
+
+
 
 <?php
 echo "<br/>";
