@@ -29,6 +29,18 @@ class UsersController extends AppController{
 		$this->set('follow_id',$this->follow->findByid($pageuser));
 
 
+        //if click button render to following or follower
+        if(isset($_POST['following']))
+        {
+            $this->set('following_data',$this->follow->find('all'));
+            $this->render('following');
+        }
+        if(isset($_POST['follower']))
+        {
+            $this->set('follower_data',$this->follow->find('all'));
+            $this->render('follower');
+        }
+
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,17 +71,7 @@ class UsersController extends AppController{
 			}
 	}
 
-////////////////////////////////////////////////////////////////////////////////////////////////
 
-	//this is unfollow system
-	public function unfollow()
-	{
-	$this->follow->deleteAll(array(
-						'follow.username' => 'endopasmic'
-					));
-	}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////	
 }// end class
 
 ?>

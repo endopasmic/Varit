@@ -163,13 +163,15 @@ class TweetsController extends AppController{
 			//reply_dataはPOSTで得たのreplyデータ
 			$reply_data=$_POST['reply_tweet'];
 			$reply_id = $_POST['id'];
+            $reply_username = $_POST['reply_username'];
 
 			$this->Twitter_post->create();
 			$this->Twitter_post->save(array(
 				'username' => $username,
 				'tweet' => $reply_data,
 				'reply_check' => 'TRUE',
-				'reply_tweet_id'=> $reply_id
+				'reply_tweet_id'=> $reply_id,
+                'reply_tweet_username' => $reply_username
 
 			));
 		}

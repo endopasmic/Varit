@@ -15,16 +15,18 @@ $(document).ready(function(){
 			  	//get tweet data
 			  	$.each( data.json, function(key,value) {
 			  	//sperated json into value 	  	
-			  	id = value.Twitter_post.id;
-			  	username = value.Twitter_post.username;
+		  		id = value.Twitter_post.id;
+			  	post_username = value.Twitter_post.username;
 			  	var tweet = value.Twitter_post.tweet;
+			  	reply_tweet_id = value.Twitter_post.reply_tweet_id;
+			  	reply_tweet_username = value.Twitter_post.reply_tweet_username;
 			  	
 			  	//get user data
 			  	$.each( data.json_user, function(key,value) {
 			  	
 			  	var user_id = value.Twitter_users.user_id;
 			  	user_regis = value.Twitter_users.username; 
-			  	if(user_regis==username)
+			  	if(user_regis==post_username)
 			  	 {use_user_id=user_id;}
 
 			 	 });
@@ -35,25 +37,29 @@ $(document).ready(function(){
 			  	var follow_id = value.follow.id;
 			  	 follow_byuser = value.follow.follow_user;
 			  	 follow_user = value.follow.username;
+			  	 follow_status = value.follow.status;
 
-			  	if(follow_byuser==username)
+			  	if(follow_byuser==post_username)
 			  	{
+			    	if(!reply_tweet_username)
+						{reply_tweet_username=document.URL;}
 			    	items.push(
 			    			"<div>"
 			    				   +"  "+
-			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+username+"'>@" 
-			    				   +username+"</a></span> <br/>"
-			    				   +"<span name=''>"+tweet+"</span><br/>"+
-			    				    "<button onclick=\"reply_tweet(" + id + ", '" + username+"');\">REPLY</button>"
+			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>@" 
+			    				   +post_username+"</a></span> <br/>"+
+			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/>"+
+			    				    "<button onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
 			    		);
 				
 					    //delete
-					    if(username=="<?php echo $username ?>")
+					    if(post_username=="<?php echo $username ?>")
 					    {
 					    	items.push("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
 					    }
+
 				}
 				});		
 			  });//end each		 
