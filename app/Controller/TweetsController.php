@@ -33,6 +33,14 @@ class TweetsController extends AppController{
 		//if form go post
 		if($this->request->is('post'))
 		{
+					/*
+					$this->follow->create();
+	                $this->follow->save(array(
+	                		'username' => $this->request->data['Twitter_users']['Username'],
+	                		'follow_user' => $this->request->data['Twitter_users']['Username']
+	                	));
+	                */
+
 			$user = $this->Twitter_users->find( 'all', array(
 				'Username' => $this->request->data['Twitter_users']['Username'],
 				'Password' => $this->request->data['Twitter_users']['password']
@@ -50,6 +58,7 @@ class TweetsController extends AppController{
 				if($user[$i]['Twitter_users']['username']==$username&&
 				   $user[$i]['Twitter_users']['password']==$password)
 				{
+
 					return $this->redirect(array('action' => 'getTweet'));
 				}
 				else
@@ -59,6 +68,12 @@ class TweetsController extends AppController{
 			}
     	}
 	}//end .twitter_login
+//////////////////////////////////////////////////////////////////////////////////////////////
+	public function twitter_logout()
+	{
+
+	}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -77,11 +92,6 @@ class TweetsController extends AppController{
             if ($this->Twitter_users->save($this->request->data) ) {
                 $this->Session->setFlash(__('Your post has been saved.'));
 
-                $this->follow->create();
-                $this->follow->save(array(
-                		'username' => $this->request->data['Twitter_users']['username'],
-                		'follow_user' => $this->request->data['Twitter_users']['username']
-                	));
 
                 return $this->redirect(array('action' => 'index'));
             }

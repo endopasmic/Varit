@@ -24,15 +24,13 @@
 	function update()
 	{
 		if($('#submit').val()=='Follow')
-		{	
-			$('input:hidden[name="unfollow"]').attr('name', 'username');
+		{		
+			$('input:hidden[name="username"]').attr('name', 'unfollow');
 			$('#submit').val('Unfollow');
 		}
-		
 		else if($('#submit').val()=='Unfollow')
 		{
-
-			$('input:hidden[name="username"]').attr('name', 'unfollow');
+			$('input:hidden[name="unfollow"]').attr('name', 'username');
 			$('#submit').val('Follow');
 		}
 	}
@@ -56,7 +54,7 @@ echo "<b>show tweet</b>";
 
 <script type="text/javascript">
 //load json 
-var username;
+var post_username;
 var use_user_id;
 var user_regis;
 var follow_user;
@@ -71,7 +69,7 @@ $(document).ready(function(){
 			  	$.each( data.json, function(key,value) {
 	
 			  	id = value.Twitter_post.id;
-			  	username = value.Twitter_post.username;
+			  	post_username = value.Twitter_post.username;
 			  	var tweet = value.Twitter_post.tweet;
 			  	
 			  	//get user data
@@ -79,7 +77,7 @@ $(document).ready(function(){
 			  	
 			  	var user_id = value.Twitter_users.user_id;
 			  	user_regis = value.Twitter_users.username; 
-			  	if(user_regis==username)
+			  	if(user_regis==post_username)
 			  	 {use_user_id=user_id;}
 
 			 	 });
@@ -91,28 +89,29 @@ $(document).ready(function(){
 			  	 follow_byuser = value.follow.follow_user;
 			  	 follow_user = value.follow.username;
 			  	 follow_status = value.follow.status;
+			  	 });	
 
-			  	if("<?php echo $page_data['Twitter_users']['username']; ?>"==username)
-			  	{
+			  	if("<?php echo $page_data['Twitter_users']['username']; ?>"==post_username)
+				{
 			    	items.push(
 			    			"<div>"
 			    				   +"  "+
-			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+username+"'>@" 
-			    				   +username+"</a></span> <br/>"
+			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>@" 
+			    				   +post_username+"</a></span> <br/>"
 			    				   +"<span name=''>"+tweet+"</span><br/>"+
-			    				    "<button onclick=\"reply_tweet(" + id + ", '" + username+"');\">REPLY</button>"
+			    				    "<button onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
 			    		);
 				
 					    //delete
-					    if(username=="<?php echo $username ?>")
+					    if(post_username=="<?php echo $username ?>")
 					    {
 					    	items.push("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
 					    }
 				}
-				});		
-			  });//end each		 
+
+			  });//end each		  
 			  $("#get_data").html( items.join("") );
 			  
 			  if(follow_status=="TRUE"&&follow_byuser=="<?php echo $page_data['Twitter_users']['username'];  ?>")
@@ -135,9 +134,9 @@ $(document).ready(function(){
 	*/	
 });	
 
-function reply_tweet(id,username)
+function reply_tweet(id,post_username)
 {
-	$("#reply"+id).html("<form action='/CakePHP/Tweets/reply_tweet' method='post'><textarea name='reply_tweet'>@"+username+"</textarea><br/><input value='Tweet' type='submit'></input><input type='hidden' name='id' value='"+id+"'></input> </form>");
+	$("#reply"+id).html("<form action='/CakePHP/Tweets/reply_tweet' method='post'><textarea name='reply_tweet'>@"+post_username+"</textarea><br/><input value='Tweet' type='submit'></input><input type='hidden' name='id' value='"+id+"'></input> </form>");
 
 }
 
