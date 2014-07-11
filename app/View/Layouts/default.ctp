@@ -40,7 +40,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		//print $html->charsetTag('UTF-8');
 		//print $javascript->link('prototype');
 		//print $javascript->link('scriptaculous.js?load=effects'); 
+
+
 	?>
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 </head>
 <body>
 	<div id="container">

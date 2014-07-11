@@ -20,6 +20,7 @@ echo $this->Js->writeBuffer( array( 'inline' => 'true'));
 <?php
 	echo $this->Html->charset();
 	echo $this->Html->css('index.css');
+	echo $this->Html->script('ajaxupload.js');
 
 	echo $this->fetch('meta');
 	echo $this->fetch('css');

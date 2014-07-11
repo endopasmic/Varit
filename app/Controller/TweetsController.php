@@ -4,10 +4,11 @@
 class TweetsController extends AppController{
 	
 	//activate html,Form,javascript helper
-	public $helppers = array('Html', 'Form', 'Js' );
-	public $components = array('RequestHandler');
+	public $helpers = array('Html', 'Form', 'Js','Text' );
+	public $components = array('RequestHandler','Session');
+
 	//import model
-	var $uses = array('Twitter_users','Twitter_post','follow');
+	var $uses = array('Twitter_users','Twitter_post','follow','tag');
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,7 +110,7 @@ class TweetsController extends AppController{
 		$this->layout = ('twitterlayout');
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
-		
+
 		//set json
 		$json = $this->Twitter_post->find('all');
 		$json_follow = $this->follow->find('all',array(
@@ -117,42 +118,31 @@ class TweetsController extends AppController{
 			));
 		$json_user =$this->Twitter_users->find('all',array(
 					'user_id' => array('user_id')
-			));	
+			));
+        $json_tag = $this->tag->find('all');
 		
-		$this->set(compact("json",'json_user'));
+		$this->set(compact("json"));
 		$this->set(compact("json_user"));
 		$this->set(compact("json_follow"));
+        $this->set(compact("json_tag"));
 		
-		$this->set('_serialize', array('json','json_user','json_follow') );
+		$this->set('_serialize', array('json','json_user','json_follow','json_tag') );//sent json
 
 		if ($this->request->is('post')) 
 		 {
 		 	return $this->redirect(array('action' => 'tweet'));
 		 }
 		 //render view	
-		 $this->render('getTweet');
+
 	}//end post_tweet
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
 
-	 //最新のツイットをとって保存する
-	public function tweetUpdate()
-	{
-		//set
-		$this->layout = ('twitterlayout');
-		$username = $this->Session->read('username');
-		$this->set('username',$username);
-		$tweet_detail = $this->data['Twitter_post']['tweet_detail'];
-		$this->redirect(array('action' => 'getTweet'));
-		//render view	
-		$this->render('/js_submit_form');
-		
-	}//end tweet
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//リプライデータを登録する
 	public function reply_tweet()
 	{
+
 		$this->layout = ('twitterlayout');
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
@@ -181,29 +171,117 @@ class TweetsController extends AppController{
 ////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//Ajaxになるため最新のツイットをechoして.TweetUpdateにRenderされる
-	public function js_submit_form()
+	public function tweetUpdate()
 	{
+        $this->layout = ('twitterlayout');
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
 
-		//POSTでセーブ
-		if($this->request->is('post'))
-		{
-			$this->Twitter_post->create();
-			$this->Twitter_post->save(array(
-				'username' => $username,
-				'tweet' => $this->request->data['Twitter_post']['tweet_detail'],
-				'reply_check' => 'FLASE'
+        if($this->request->is('ajax'))//check this is XMLHttpRequest
+        {
+            //POSTでセーブ
+            if($this->request->is('post'))//check this is send by post
+            {
 
-				));		
-		}
+
+                $tweet = $this->request->data['Twitter_post']['tweet_detail'];
+                //if this no tag
+                if(strpos($tweet,"#")===false)
+                {
+                    $this->Twitter_post->create();
+                    $this->Twitter_post->save(array(
+                        'username' => $username,
+                        'tweet' => $this->request->data['Twitter_post']['tweet_detail'],
+                        'reply_check' => 'FALSE',
+                        'tag_status' => 'FALSE'
+
+                    ));
+                }
+                else
+                {
+                   //# tag case
+                   $tweetSplit = explode(" ",$tweet);
+                   $tweetCount = substr_count($tweet, " ");
+
+                    for($i=0;$i<=$tweetCount;$i++)
+                    {
+                       $tweetFindTag = strpos($tweetSplit[$i],'#');
+                        if($tweetFindTag === FALSE)
+                        {
+                            $this->Twitter_post->create();
+                            $this->Twitter_post->save(array(
+                                'username' => $username,
+                                'tweet' => $tweetSplit[$i],
+                                'reply_check' => 'FALSE',
+                                'tag_status' => 'TRUE'
+                            ));
+                        }
+                        else if($tweetFindTag==0)
+                        {
+                            $this->tag->create();
+                            $this->tag->save(array(
+                                'username' => $username,
+                                'tagname' => substr($tweetSplit[$i],1),
+                                'tag_tweet' => $this->request->data['Twitter_post']['tweet_detail']
+
+                            ));
+
+                        }
+                    }
+
+
+                }
+
+                //$this->render('getTweet');
+            }
+        }
 		else
 		{
-			$this->Js->each('alert("登録失敗");', true);	
+
 		}
+
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
+    public function FileUpload()
+    {
+        if (!empty($this->request->data) && $this->request->is('ajax'))
+        {
+            Configure::write('debug',0);
+            $this->autoRender = false;
+            $this->autoLayout = false;
+
+            $type = array(
+                'image/png' => '.png',
+                'image/jpeg' => '.jpg',
+                'image/gif' => '.gif',
+            );
+
+            $fileName = $this->request->data['Image']['fileName'].$type[$this->request->data['Image']['type']];
+
+            move_uploaded_file($this->request->data['Image']['tmp_name'], IMAGES.$fileName);
+
+            $params = array(
+                'Image' => array(
+                    'name' => $fileName
+                )
+            );
+
+            if($this->Image->save($params))
+            {
+                return $fileName;
+            }
+            else
+            {
+                return 'error';
+            }
+        }
+
+    }
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
 	public function delete_tweet()
 	{
 		$this->layout = ('twitterlayout');
@@ -230,42 +308,45 @@ class TweetsController extends AppController{
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public function tag($tagName = null)
+    {
+
+        //set
+        $this->layout = ('twitterlayout');
+        $username = $this->Session->read('username');
+        $this->set('username',$username);
+
+
+         $this->set('tagName',$this->tag->findBytagname($tagName));
+         $this->set('tagData',$this->tag->find('all',array(
+             'conditions' => array('tag.tagname' => $tagName)
+         )));
+
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 }// End class
 
-/*
-	public function tweetUpdate(){
-		$this->layout = ('twitterlayout');
-		$username = $this->Session->read('username');
-		$this->set('username',$username);
-		$Twitter_post = $this->data['Twitter_post']['tweet_detail'];
 
-		$this->Twitter->create();
-		$this->Twitter_post->save($this->request->data,array(
-			'username' => $username,
-			'tweet' => $Twitter_post
-			));
-		{
-			$this->render('/js_submit_form');
-		}
-	}//end tweet
-
-
-		$this->layout = ('twitterlayout');
-
-		$username = $this->Session->read('username');
-		$this->set('username',$username);
-
-		if($this->request->is('post'))
-		{
-			$this->Twitter_post->create();
-			//var_dump($this->request->data);//var_dump will show the type of value
-			$this->Twitter_post->save(array(
-			    'tweet' => $this->request->data['Twitter_post']['tweet'],
-			    'username'=> $username
-			));
-		}
-
-		$this->render('getTweet');
-*/
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
