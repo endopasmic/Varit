@@ -182,8 +182,6 @@ class TweetsController extends AppController{
             //POSTでセーブ
             if($this->request->is('post'))//check this is send by post
             {
-
-
                 $tweet = $this->request->data['Twitter_post']['tweet_detail'];
                 //if this no tag
                 if(strpos($tweet,"#")===false)
@@ -194,21 +192,19 @@ class TweetsController extends AppController{
                         'tweet' => $this->request->data['Twitter_post']['tweet_detail'],
                         'reply_check' => 'FALSE',
                         'tag_status' => 'FALSE'
-
                     ));
                 }
+                //# tag case
                 else
                 {
-                   //# tag case
+                    $this->Twitter_post->create();
                    $tweetSplit = explode(" ",$tweet);
                    $tweetCount = substr_count($tweet, " ");
-
                     for($i=0;$i<=$tweetCount;$i++)
                     {
                        $tweetFindTag = strpos($tweetSplit[$i],'#');
                         if($tweetFindTag === FALSE)
                         {
-                            $this->Twitter_post->create();
                             $this->Twitter_post->save(array(
                                 'username' => $username,
                                 'tweet' => $tweetSplit[$i],
@@ -218,18 +214,12 @@ class TweetsController extends AppController{
                         }
                         else if($tweetFindTag==0)
                         {
-                            $this->tag->create();
-                            $this->tag->save(array(
-                                'username' => $username,
+                            $this->Twitter_post->save(array(
                                 'tagname' => substr($tweetSplit[$i],1),
-                                'tag_tweet' => $this->request->data['Twitter_post']['tweet_detail']
 
                             ));
-
                         }
-                    }
-
-
+                    }//end loop
                 }
 
                 //$this->render('getTweet');
@@ -245,35 +235,18 @@ class TweetsController extends AppController{
 /////////////////////////////////////////////////////////////////////////////////////////////////
     public function FileUpload()
     {
-        if (!empty($this->request->data) && $this->request->is('ajax'))
-        {
-            Configure::write('debug',0);
-            $this->autoRender = false;
-            $this->autoLayout = false;
+        if (!$this->data['FileUpload']['upload_file']) {
+            $this->set('error','アップロードするファイルを選択してください');
 
-            $type = array(
-                'image/png' => '.png',
-                'image/jpeg' => '.jpg',
-                'image/gif' => '.gif',
-            );
+        } else {
+            if ($this->data['FileUpload']['upload_file']['type'] != 'image/jpeg') {
+                $this->set('error','アップロードできる画像は JPEG のみです');
 
-            $fileName = $this->request->data['Image']['fileName'].$type[$this->request->data['Image']['type']];
+            } else {
+                $filename = '/files/'.intval(rand()).'.jpg';
+                rename($this->data['FileUpload']['upload_file']['tmp_name'], WWW_ROOT.$filename);
+                $this->set('filename', $filename);
 
-            move_uploaded_file($this->request->data['Image']['tmp_name'], IMAGES.$fileName);
-
-            $params = array(
-                'Image' => array(
-                    'name' => $fileName
-                )
-            );
-
-            if($this->Image->save($params))
-            {
-                return $fileName;
-            }
-            else
-            {
-                return 'error';
             }
         }
 

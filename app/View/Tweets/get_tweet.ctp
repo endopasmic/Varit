@@ -5,7 +5,7 @@ var username;
 var use_user_id;
 var user_regis;
 var follow_user;
-var tagName;
+var tag_ame;
 var tagUser;
 var tag;
 var tagLink;
@@ -25,6 +25,7 @@ $(document).ready(function(){
 			  	reply_tweet_id = value.Twitter_post.reply_tweet_id;
 			  	reply_tweet_username = value.Twitter_post.reply_tweet_username;
 			  	tag_status = value.Twitter_post.tag_status;
+			  	tag_name = value.Twitter_post.tagname;
 
 			  	//get user data
 			  	$.each( data.json_user, function(key,value) {
@@ -44,12 +45,6 @@ $(document).ready(function(){
 			  	 follow_user = value.follow.username;
 			  	 follow_status = value.follow.status;
 
-			  	//get tag data
-			  	$.each(data.json_tag, function(key,value){
-			  		tagName = value.tag.tagname;
-			  		tagUser = value.tag.username;
-
-			  	});
 
 			  	if(follow_byuser==post_username)
 			  	{
@@ -64,15 +59,15 @@ $(document).ready(function(){
 			    	
 			    	if(tag_status!='FALSE')
 			    	 {
-			    	 	tagName="#"+tagName;
-			    	 	tagLink = tagName.substring(1);
+			    	 	tag_name="#"+tag_name;
+			    	 	tagLink = tag_name.substring(1);
 			    	 }	 		
 			    		items.push(
 			    			"<div>"
 			    				   +"  "+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/><a href='tag/"+tagLink+"'>"+tagName+"</a><br/>"+
+			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+
 			    				    "<button onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"

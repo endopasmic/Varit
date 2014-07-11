@@ -1,17 +1,10 @@
-<?php
-    echo $this->Form->create('Tweet',array('action' => 'FileUpload', 'type' => 'file')).PHP_EOL;
- 
-    echo $this->Form->input(false,array(
-        'type' => 'file',
-        'label' => '画像選択',
-    )).PHP_EOL;
- 
-    echo $this->Form->input('fileName', array(
-        'type' => 'text',
-        'label' => '画像名',
-        'required' => true,
-        )).PHP_EOL;
- 
-    echo $this->Form->submit('upload',array('id' => 'img')).PHP_EOL;
-    echo $this->Form->end().PHP_EOL;
+<h1>upload test</h1>
+<?php echo $this->Form->create('FileUpload',array('name'=>'uploadForm','id'=>'uploadForm','type'=>'file'));?>
+<?php echo $this->Form->input('upload_file',array('label'=>'Upload Text File ','type'=>'file'));?>
+<?php echo $this->Form->button('アップロード',array
+    ('onClick'=>'$("#uploadForm").ajaxSubmit({target: "#uploadFile",url: "/users/upload"}); return false;'));
+
+echo $this->Form->end();
 ?>
+
+<div id="uploadFile"></div>

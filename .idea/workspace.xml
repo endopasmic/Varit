@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e340871-85c6-479b-b4b9-65479750d41f" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\xampp\htdocs\CakePHP\app\View\Elements\user_page.ctp" afterPath="" />
-      <change type="DELETED" beforePath="C:\xampp\htdocs\CakePHP\app\View\Tweets\js_submit_form.ctp" afterPath="" />
-      <change type="DELETED" beforePath="C:\xampp\htdocs\CakePHP\app\webroot\js\empty" afterPath="" />
+      <change type="DELETED" beforePath="C:\xampp\htdocs\CakePHP\app\webroot\files\empty" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Controller/TweetsController.php" afterPath="$PROJECT_DIR$/app/Controller/TweetsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Config/bootstrap.php" afterPath="$PROJECT_DIR$/app/Config/bootstrap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Layouts/default.ctp" afterPath="$PROJECT_DIR$/app/View/Layouts/default.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/file_upload.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/file_upload.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/get_tweet.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/get_tweet.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/index.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/index.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Layouts/twitterlayout.ctp" afterPath="$PROJECT_DIR$/app/View/Layouts/twitterlayout.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CakePHP.iws" />
@@ -37,7 +32,16 @@
       <file leaf-file-name="TweetsController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="246" column="5" selection-start="7630" selection-end="7630" vertical-scroll-proportion="0.20987654" vertical-offset="4029" max-vertical-offset="6086">
+            <state line="198" column="17" selection-start="6145" selection-end="6145" vertical-scroll-proportion="0.31687242" vertical-offset="3135" max-vertical-offset="5627">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="file_upload.ctp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/View/Tweets/file_upload.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="27" selection-start="443" selection-end="443" vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="255">
               <folding />
             </state>
           </provider>
@@ -46,7 +50,7 @@
       <file leaf-file-name="UsersController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Controller/UsersController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="37" selection-start="1110" selection-end="1110" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="1394">
+            <state line="37" column="37" selection-start="1110" selection-end="1110" vertical-scroll-proportion="-0.0" vertical-offset="629" max-vertical-offset="1394">
               <folding />
             </state>
           </provider>
@@ -69,14 +73,14 @@
         <option value="$PROJECT_DIR$/app/View/Users/users_page.ctp" />
         <option value="$PROJECT_DIR$/app/Controller/UsersController.php" />
         <option value="$PROJECT_DIR$/app/Controller/Component/file_upload.php" />
+        <option value="$PROJECT_DIR$/app/View/Tweets/file_upload.ctp" />
         <option value="$PROJECT_DIR$/app/Controller/TweetsController.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="712" />
-    <option name="y" value="2" />
+    <option name="x" value="716" />
     <option name="width" value="890" />
     <option name="height" value="892" />
   </component>
@@ -237,7 +241,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="712" y="2" width="890" height="892" extended-state="0" />
+    <frame x="716" y="0" width="890" height="892" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -343,13 +347,6 @@
         <state line="120" column="0" selection-start="3124" selection-end="3124" vertical-scroll-proportion="-0.41253644" vertical-offset="2323" max-vertical-offset="3009" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Controller/UsersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="37" selection-start="1110" selection-end="1110" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="1394">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/View/Helper/AjaxuploadHelper.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="121" column="21" selection-start="4369" selection-end="4369" vertical-scroll-proportion="36.53846" vertical-offset="2922" max-vertical-offset="4097" />
@@ -360,9 +357,23 @@
         <state line="11" column="3" selection-start="309" selection-end="309" vertical-scroll-proportion="0.2611732" vertical-offset="0" max-vertical-offset="6086" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/Tweets/file_upload.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="27" selection-start="443" selection-end="443" vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Controller/UsersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="37" selection-start="1110" selection-end="1110" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="1394">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="246" column="5" selection-start="7630" selection-end="7630" vertical-scroll-proportion="0.20987654" vertical-offset="4029" max-vertical-offset="6086">
+        <state line="198" column="17" selection-start="6145" selection-end="6145" vertical-scroll-proportion="0.31687242" vertical-offset="3135" max-vertical-offset="5627">
           <folding />
         </state>
       </provider>
