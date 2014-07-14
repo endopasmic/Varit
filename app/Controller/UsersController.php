@@ -17,7 +17,7 @@ class UsersController extends AppController{
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 	//this is userpage system create page by user_id and send user data to view
-	public function usersPage($pageuser= null)
+	public function usersPage($pageuser= null,$userImage = null)
 	{
 		//set layout,username
 		$this->layout = ('twitterlayout');
@@ -27,7 +27,6 @@ class UsersController extends AppController{
 		//setdata
 		$this->set('page_data',$this->Twitter_users->findByusername($pageuser));
 		$this->set('follow_id',$this->follow->findByid($pageuser));
-
 
         //if click button render to following or follower
         if(isset($_POST['following']))
@@ -39,6 +38,13 @@ class UsersController extends AppController{
         {
             $this->set('follower_data',$this->follow->find('all'));
             $this->render('follower');
+        }
+
+        //if click image link goto status view
+        if($pageuser && $userImage != null)
+        {
+            $this->set('status_data',$this->Twitter_post->findByimagetitle($userImage));
+            $this->render('status');
         }
 
 	}

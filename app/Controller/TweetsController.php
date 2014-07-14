@@ -177,25 +177,22 @@ class TweetsController extends AppController{
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
 
-         $_POST['test'];
         if($_FILES['image']&&$_POST['text'])
         {
             //input file
-            $filename = '/files/'.intval(rand()).'.jpg';
+            $randomName = intval(rand());
+            $filename = '/files/'.$randomName.'.jpg';
             $imagelink=rename($_FILES['image']['tmp_name'],WWW_ROOT.$filename);
             $this->set('filename',$filename);
 
             $this->Twitter_post->create();
             $this->Twitter_post->save(array(
-                'imagelink' => "/CakePHP/app/webroot".$filename
+                'imagelink' => "/CakePHP/app/webroot".$filename,
+                'imagetitle' => $randomName
             ));
-
-
-
         }
 
-
-        //POSTでセーブ
+             //POSTでセーブ
             if($this->request->is('post'))//check this is send by post
             {
                 $tweet = $_POST['text'];

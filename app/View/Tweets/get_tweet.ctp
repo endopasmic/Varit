@@ -21,6 +21,7 @@ var tag;
 var tagLink;
 var tag_status;
 var imagelink;
+var imageTitle;
 $(document).ready(function(){
 
 			//get json file
@@ -38,6 +39,7 @@ $(document).ready(function(){
 			  	tag_status = value.Twitter_post.tag_status;
 			  	tag_name = value.Twitter_post.tagname;
 			  	imagelink = value.Twitter_post.imagelink;
+			  	imageTitle = value.Twitter_post.imagetitle;
 			  	//get user data
 			  	$.each( data.json_user, function(key,value) {
 
@@ -78,7 +80,7 @@ $(document).ready(function(){
 			    				   +"  "+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+imagelink+"<br/><img src="+imagelink+" ><br/>"+
+			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/><a href='/CakePHP/Users/usersPage/"+post_username+"/"+imageTitle+"'>imageLink</a><br/><img src="+imagelink+" ><br/>"+
 			    				    "<button onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
@@ -204,7 +206,7 @@ function reply_tweet(id,username)
 ?>
 
 <form id="data" method="post" enctype="multipart/form-data">
-	<input type="text" name="text" row />
+	<input type="text" name="text" />
 	<br/>
 	<input type="file" name="image" />
 	<br/>
