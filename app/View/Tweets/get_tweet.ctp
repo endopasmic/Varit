@@ -64,13 +64,13 @@ $(document).ready(function(){
 			  	{
 			   		//debug reply link
 			    	if(!reply_tweet_username)
-						{reply_tweet_username=document.URL;}
+					{reply_tweet_username=document.URL;}
+					
 					//debug no tag tweet
 			    	if(tag_status=='FALSE')
 			    		{tagName=" ";}
 			    	if(tagUser!=post_username)
 			    	 	{tagName=" ";}
-
 			    	if(tag_status!='FALSE')
 			    	 {
 			    	 	tag_name="#"+tag_name;
@@ -110,9 +110,7 @@ $(document).ready(function(){
 			  });//end each		 
 			  $("#get_data").html( items.join("") );
 			});
-	$('input').click(function(){
-		update();
-	});		
+
 });
 
 function update()
@@ -131,6 +129,7 @@ function update()
 			  	reply_tweet_username = value.Twitter_post.reply_tweet_username;
 			  	tag_status = value.Twitter_post.tag_status;
 			  	imagelink = value.Twitter_post.imagelink;
+			  	imageTitle = value.Twitter_post.imagetitle;
 
 
 			  	//get user data
@@ -173,13 +172,24 @@ function update()
 			    	 {
 			    	 	tagName="#"+tagName;
 			    	 	tagLink = tagName.substring(1);
-			    	 }	 		
+			    	 }
+
+			    	//image			    		
+			    	if(imagelink!="")
+			    	{
+			    			image_data="<br/><a href='/CakePHP/Users/usersPage/"+post_username+"/"+imageTitle+"'>imageLink</a><br/><img src="+imagelink+" ><br/>"
+			    	}
+			    	else
+			    	{
+			    		image_data="";
+			    	}
+			    			 		
 			    		items.push(
-		    			"<div>"
+   								"<div>"
 			    				   +"  "+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/><img src="+imagelink+" ><br/>"+
+			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span>"+image_data+"<br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+
 			    				    "<button onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
@@ -199,7 +209,7 @@ function update()
 
 function reply_tweet(id,username)
 {
-	$("#reply"+id).html("<form action='/CakePHP/Tweets/reply_tweet' method='post'><textarea name='reply_tweet'>@"+username+"</textarea><br/><input value='Tweet' type='submit'></input><input type='hidden' name='id' value='"+id+"'></input> </form>");
+	$("#reply"+id).html("<form action='/CakePHP/Tweets/reply_tweet' method='post'><textarea name='reply_tweet'>@"+username+"</textarea><br/><input value='Tweet' type='submit'></input><input type='hidden' name='id' value='"+id+"'></input><input type='hidden' name='reply_username' value='"+username+"'></input> </form>");
 
 }
 
@@ -223,7 +233,7 @@ function reply_tweet(id,username)
 	<br/>
 	<input type="file" name="image" />
 	<br/>
-	<button>Submit</button>
+	<button onclick="update()">Submit</button>
 </form>
 
 <script>
@@ -238,7 +248,7 @@ function reply_tweet(id,username)
 			data: formData,
 			async: false,
 			success: function(data){
-				alert(data)
+				alert("already submit")
 			},
 			cache: false,
 			contentType: false,

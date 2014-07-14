@@ -170,7 +170,8 @@ $(document).ready(function(){
 //this is for reply
 function reply_tweet(id,post_username)
 {
-	$("#reply"+id).html("<form action='/CakePHP/Tweets/reply_tweet' method='post'><textarea name='reply_tweet'>@"+post_username+"</textarea><br/><input value='Tweet' type='submit'></input><input type='hidden' name='id' value='"+id+"' /><input type='hidden' name='reply_username' value='"+reply_tweet_username+"' /> </form>");
+	$("#reply"+id).html("<form action='/CakePHP/Tweets/reply_tweet' method='post'><textarea name='reply_tweet'>@"+username+"</textarea><br/><input value='Tweet' type='submit'></input><input type='hidden' name='id' value='"+id+"'></input><input type='hidden' name='reply_username' value='"+username+"'></input> </form>");
+
 
 }
 
