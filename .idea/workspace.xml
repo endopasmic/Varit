@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e340871-85c6-479b-b4b9-65479750d41f" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\xampp\htdocs\CakePHP\app\webroot\files\empty" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Controller/TweetsController.php" afterPath="$PROJECT_DIR$/app/Controller/TweetsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/file_upload.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/file_upload.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/get_tweet.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/get_tweet.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Layouts/twitterlayout.ctp" afterPath="$PROJECT_DIR$/app/View/Layouts/twitterlayout.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CakePHP.iws" />
@@ -29,10 +29,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TweetsController.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TweetsController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="198" column="17" selection-start="6145" selection-end="6145" vertical-scroll-proportion="0.31687242" vertical-offset="3135" max-vertical-offset="5627">
+            <state line="178" column="0" selection-start="5328" selection-end="5328" vertical-scroll-proportion="-0.42307693" vertical-offset="3015" max-vertical-offset="5814">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UsersController.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Controller/UsersController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="22" column="42" selection-start="610" selection-end="610" vertical-scroll-proportion="0.303155" vertical-offset="153" max-vertical-offset="1394">
               <folding />
             </state>
           </provider>
@@ -41,17 +50,10 @@
       <file leaf-file-name="file_upload.ctp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/View/Tweets/file_upload.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="27" selection-start="443" selection-end="443" vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="255">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UsersController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Controller/UsersController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="37" selection-start="1110" selection-end="1110" vertical-scroll-proportion="-0.0" vertical-offset="629" max-vertical-offset="1394">
-              <folding />
+            <state line="9" column="2" selection-start="437" selection-end="437" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="289">
+              <folding>
+                <marker date="1405055026698" expanded="true" signature="284:406" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -80,8 +82,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="716" />
-    <option name="width" value="890" />
+    <option name="x" value="506" />
+    <option name="y" value="8" />
+    <option name="width" value="985" />
     <option name="height" value="892" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -110,6 +113,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -202,7 +206,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -241,7 +244,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="716" y="0" width="890" height="892" extended-state="0" />
+    <frame x="506" y="8" width="985" height="892" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -249,7 +252,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.06864989" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.061919503" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -257,11 +260,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -283,6 +286,29 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="190" column="0" selection-start="5628" selection-end="5628" vertical-scroll-proportion="0.0" vertical-offset="2907" max-vertical-offset="6052">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/Tweets/file_upload.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="2" selection-start="437" selection-end="437" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="289">
+          <folding>
+            <marker date="1405055026698" expanded="true" signature="284:406" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Controller/UsersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="37" selection-start="1110" selection-end="1110" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="1394">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="69" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="6086">
@@ -340,11 +366,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/View/Users/users_page.ctp">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="120" column="0" selection-start="3124" selection-end="3124" vertical-scroll-proportion="-0.41253644" vertical-offset="2323" max-vertical-offset="3009" />
+      </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/View/Helper/AjaxuploadHelper.php">
@@ -359,21 +385,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/View/Tweets/file_upload.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="27" selection-start="443" selection-end="443" vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="255">
+        <state line="9" column="2" selection-start="437" selection-end="437" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="289">
+          <folding>
+            <marker date="1405055026698" expanded="true" signature="284:406" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="178" column="0" selection-start="5328" selection-end="5328" vertical-scroll-proportion="-0.42307693" vertical-offset="3015" max-vertical-offset="5814">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Controller/UsersController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="37" selection-start="1110" selection-end="1110" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="1394">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="17" selection-start="6145" selection-end="6145" vertical-scroll-proportion="0.31687242" vertical-offset="3135" max-vertical-offset="5627">
+        <state line="22" column="42" selection-start="610" selection-end="610" vertical-scroll-proportion="0.303155" vertical-offset="153" max-vertical-offset="1394">
           <folding />
         </state>
       </provider>

@@ -1,4 +1,14 @@
 <h1>Main Page</h1>
+<style type="text/css">
+	
+img
+{
+ max-width: 400px;
+ max-height: 400px;
+
+}
+
+</style>
 <script type="text/javascript">
 //load json 
 var username;
@@ -10,6 +20,7 @@ var tagUser;
 var tag;
 var tagLink;
 var tag_status;
+var imagelink;
 $(document).ready(function(){
 
 			//get json file
@@ -26,7 +37,7 @@ $(document).ready(function(){
 			  	reply_tweet_username = value.Twitter_post.reply_tweet_username;
 			  	tag_status = value.Twitter_post.tag_status;
 			  	tag_name = value.Twitter_post.tagname;
-
+			  	imagelink = value.Twitter_post.imagelink;
 			  	//get user data
 			  	$.each( data.json_user, function(key,value) {
 
@@ -48,7 +59,7 @@ $(document).ready(function(){
 
 			  	if(follow_byuser==post_username)
 			  	{
-			  		//debug reply link
+			   		//debug reply link
 			    	if(!reply_tweet_username)
 						{reply_tweet_username=document.URL;}
 					//debug no tag tweet
@@ -56,7 +67,7 @@ $(document).ready(function(){
 			    		{tagName=" ";}
 			    	if(tagUser!=post_username)
 			    	 	{tagName=" ";}
-			    	
+
 			    	if(tag_status!='FALSE')
 			    	 {
 			    	 	tag_name="#"+tag_name;
@@ -67,7 +78,7 @@ $(document).ready(function(){
 			    				   +"  "+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+
+			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+imagelink+"<br/><img src="+imagelink+" ><br/>"+
 			    				    "<button onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
@@ -104,6 +115,8 @@ function update()
 			  	reply_tweet_id = value.Twitter_post.reply_tweet_id;
 			  	reply_tweet_username = value.Twitter_post.reply_tweet_username;
 			  	tag_status = value.Twitter_post.tag_status;
+			  	imagelink = value.Twitter_post.imagelink;
+
 
 			  	//get user data
 			  	$.each( data.json_user, function(key,value) {
@@ -147,11 +160,11 @@ function update()
 			    	 	tagLink = tagName.substring(1);
 			    	 }	 		
 			    		items.push(
-			    			"<div>"
+		    			"<div>"
 			    				   +"  "+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/><a href='tag/"+tagLink+"'>"+tagName+"</a><br/>"+
+			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/><img src="+imagelink+" ><br/>"+
 			    				    "<button onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
@@ -183,31 +196,43 @@ function reply_tweet(id,username)
 <div id="sending-js-submit"></div>
 <div id="result-js-submit"></div>
 
-<br/>
 <?php echo "@$username"; ?>
 
-
 <?php
-
-	echo $this->Form->create('Twitter_post',array(
-				'onclick' => 'update()'
-		));
-	echo $this->Form->textarea('tweet_detail',array(
-				'rows' => '3'
-		));
-
-	echo $this->Js->submit( 'tweet', array(
-
-	'url' => '/Tweets/tweetUpdate',    
-    'update' => '#result-js-submit',
-    'id' => 'submit'
-  
-	)); 
-	echo $this->Form->end();
-
-	echo $this->Html->link($this->Form->button('Logout'), 
-							array('action' => 'index'), 
-							array('escape'=>false,'title' => "Click to logout")
-						   );//create link button
-
+	print_r($_POST);
+	print_r($_FILES);
 ?>
+
+<form id="data" method="post" enctype="multipart/form-data">
+	<input type="text" name="text" row />
+	<br/>
+	<input type="file" name="image" />
+	<br/>
+	<button>Submit</button>
+</form>
+
+<script>
+
+	$("form#data").submit(function(){
+
+		var formData = new FormData ($(this)[0]);
+
+		$.ajax({
+			url: "/CakePHP/Tweets/tweetUpdate",
+			type: "POST",
+			data: formData,
+			async: false,
+			success: function(data){
+				alert(data)
+			},
+			cache: false,
+			contentType: false,
+			processData: false
+		});
+
+		return false;
+	});
+
+</script>
+
+<?php echo $this->webroot; ?>

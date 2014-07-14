@@ -153,7 +153,7 @@ class TweetsController extends AppController{
 			//reply_dataはPOSTで得たのreplyデータ
 			$reply_data=$_POST['reply_tweet'];
 			$reply_id = $_POST['id'];
-            $reply_username = $_POST['reply_username'];
+            $reply_username = $_POST['reply_tweet'];
 
 			$this->Twitter_post->create();
 			$this->Twitter_post->save(array(
@@ -177,19 +177,34 @@ class TweetsController extends AppController{
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
 
-        if($this->request->is('ajax'))//check this is XMLHttpRequest
+         $_POST['test'];
+        if($_FILES['image']&&$_POST['text'])
         {
-            //POSTでセーブ
+            //input file
+            $filename = '/files/'.intval(rand()).'.jpg';
+            $imagelink=rename($_FILES['image']['tmp_name'],WWW_ROOT.$filename);
+            $this->set('filename',$filename);
+
+            $this->Twitter_post->create();
+            $this->Twitter_post->save(array(
+                'imagelink' => "/CakePHP/app/webroot".$filename
+            ));
+
+
+
+        }
+
+
+        //POSTでセーブ
             if($this->request->is('post'))//check this is send by post
             {
-                $tweet = $this->request->data['Twitter_post']['tweet_detail'];
+                $tweet = $_POST['text'];
                 //if this no tag
                 if(strpos($tweet,"#")===false)
                 {
-                    $this->Twitter_post->create();
                     $this->Twitter_post->save(array(
                         'username' => $username,
-                        'tweet' => $this->request->data['Twitter_post']['tweet_detail'],
+                        'tweet' =>$tweet,
                         'reply_check' => 'FALSE',
                         'tag_status' => 'FALSE'
                     ));
@@ -197,7 +212,6 @@ class TweetsController extends AppController{
                 //# tag case
                 else
                 {
-                    $this->Twitter_post->create();
                    $tweetSplit = explode(" ",$tweet);
                    $tweetCount = substr_count($tweet, " ");
                     for($i=0;$i<=$tweetCount;$i++)
@@ -216,40 +230,37 @@ class TweetsController extends AppController{
                         {
                             $this->Twitter_post->save(array(
                                 'tagname' => substr($tweetSplit[$i],1),
-
                             ));
+
+                            $this->tag->create();
+                            $this->tag->save(array(
+                                'username' => $username,
+                                'tagname' => substr($tweetSplit[$i],1),
+                                'tag_tweet' => $tweet
+                            ));
+
+
                         }
                     }//end loop
                 }
 
-                //$this->render('getTweet');
+
             }
-        }
+
 		else
 		{
 
 		}
-
+        $this->render('getTweet');
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
     public function FileUpload()
     {
-        if (!$this->data['FileUpload']['upload_file']) {
-            $this->set('error','アップロードするファイルを選択してください');
-
-        } else {
-            if ($this->data['FileUpload']['upload_file']['type'] != 'image/jpeg') {
-                $this->set('error','アップロードできる画像は JPEG のみです');
-
-            } else {
-                $filename = '/files/'.intval(rand()).'.jpg';
-                rename($this->data['FileUpload']['upload_file']['tmp_name'], WWW_ROOT.$filename);
-                $this->set('filename', $filename);
-
-            }
-        }
-
+        $this->layout = ('twitterlayout');
+        $username = $this->Session->read('username');
+        $this->set('username',$username);
+       $this->render('getTweet');
     }
 
 
