@@ -22,6 +22,7 @@ var tagLink;
 var tag_status;
 var imagelink;
 var imageTitle;
+var image_data;
 $(document).ready(function(){
 
 			//get json file
@@ -74,24 +75,36 @@ $(document).ready(function(){
 			    	 {
 			    	 	tag_name="#"+tag_name;
 			    	 	tagLink = tag_name.substring(1);
-			    	 }	 		
+			    	 }
+
+			    	 //image			    		
+			    	if(imagelink!="")
+			    	{
+			    			image_data="<br/><a href='/CakePHP/Users/usersPage/"+post_username+"/"+imageTitle+"'>imageLink</a><br/><img src="+imagelink+" ><br/>"
+			    	}
+			    	else
+			    	{
+			    		image_data="";
+			    	}
+			    		
+
 			    		items.push(
 			    			"<div>"
 			    				   +"  "+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span><br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/><a href='/CakePHP/Users/usersPage/"+post_username+"/"+imageTitle+"'>imageLink</a><br/><img src="+imagelink+" ><br/>"+
+			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span>"+image_data+"<br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+
 			    				    "<button onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
 			    		);
 
-					    //delete
+			    		//delete
 					    if(post_username=="<?php echo $username ?>")
 					    {
 					    	items.push("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
 					    }
-
+			    		
 				}
 				});		
 			  });//end each		 
@@ -236,5 +249,3 @@ function reply_tweet(id,username)
 	});
 
 </script>
-
-<?php echo $this->webroot; ?>

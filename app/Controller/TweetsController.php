@@ -177,7 +177,7 @@ class TweetsController extends AppController{
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
 
-        if($_FILES['image']&&$_POST['text'])
+        if(is_uploaded_file($_FILES['image']['tmp_name']))
         {
             //input file
             $randomName = intval(rand());
