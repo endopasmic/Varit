@@ -181,6 +181,7 @@ class TweetsController extends AppController{
             $retweet_id = $_POST['retweet_id'];
             $retweet_username = $_POST['retweet_username'];
             $retweet_tweet = $_POST['tweet'];
+            $retweet_imagelink = $_POST['imagelink'];
             //just for debug
             echo var_dump($_POST['retweet_username']);
             echo var_dump($_POST['retweet_id']);
@@ -193,7 +194,8 @@ class TweetsController extends AppController{
                 'tag_status' => 'FALSE',
                 'retweet_id' => $retweet_id,
                 'retweet_username' => $retweet_username,
-                'tweet' => $retweet_tweet
+                'tweet' => $retweet_tweet,
+                'imagelink' => $retweet_imagelink
 
             ));
         }

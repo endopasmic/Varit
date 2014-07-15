@@ -97,10 +97,14 @@ $(document).ready(function(){
 			    	if(retweet_id != 0 )
 			    	{
 			    		//show Retweet status text
-			    		retweet_status = "Retweeted by <a href='/CakePHP/Users/usersPage/"+post_username+"'>"+ post_username + "</a><br/>";
+			    		retweet_status = "Retweeted by @<a href='/CakePHP/Users/usersPage/"+post_username+"'>"+ post_username + "</a><br/>";
 			    		
 			    		//change @username to retweet user but in DB still correct 
 			    		post_username=retweet_username;
+			    	}
+			    	else
+			    	{
+			    		retweet_status="";
 			    	}	
 
 			    		items.push(
@@ -117,7 +121,7 @@ $(document).ready(function(){
 			    		//retweet
 			    		if(post_username !="<?php echo $username; ?>" && retweet_id==0)
 			    		{
-			    			items.push("<form action='/CakePHP/Tweets/retweet' id='retweet' method='post' enctype='multipart/form-data'><input type='hidden'name='retweet_id' value='"+id+"' ><input type='hidden' name='tweet' value='"+tweet+"'><input type='hidden'name='retweet_username' value='"+post_username+"' ><button onclick=\"retweet('" + post_username + "', '" + tweet+"');\">RETWEET</button></form>");
+			    			items.push("<form action='/CakePHP/Tweets/retweet' id='retweet' method='post' enctype='multipart/form-data'><input type='hidden'name='retweet_id' value='"+id+"' ><input type='hidden' name='imagelink' value='"+imagelink+"'><input type='hidden' name='tweet' value='"+tweet+"'><input type='hidden'name='retweet_username' value='"+post_username+"' ><button onclick=\"retweet('" + post_username + "', '" + tweet+"');\">RETWEET</button></form>");
 			    		}
 
 			    		//delete
@@ -143,14 +147,17 @@ function update()
  			//get tweet data
 			  	$.each( data.json, function(key,value) {
 			  	//sperated json into value 	  	
-		  		id = value.Twitter_post.id;
+				id = value.Twitter_post.id;
 			  	post_username = value.Twitter_post.username;
-			  	var tweet = value.Twitter_post.tweet;
+			  	tweet = value.Twitter_post.tweet;
 			  	reply_tweet_id = value.Twitter_post.reply_tweet_id;
 			  	reply_tweet_username = value.Twitter_post.reply_tweet_username;
 			  	tag_status = value.Twitter_post.tag_status;
+			  	tag_name = value.Twitter_post.tagname;
 			  	imagelink = value.Twitter_post.imagelink;
 			  	imageTitle = value.Twitter_post.imagetitle;
+			  	retweet_id = value.Twitter_post.retweet_id;
+			  	retweet_username = value.Twitter_post.retweet_username;
 
 
 			  	//get user data
