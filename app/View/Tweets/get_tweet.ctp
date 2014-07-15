@@ -24,6 +24,9 @@ var imagelink;
 var imageTitle;
 var image_data;
 var tweet;
+var retweet_id;
+var retweet_username;
+var retweet_status="";
 $(document).ready(function(){
 
 			//get json file
@@ -42,6 +45,8 @@ $(document).ready(function(){
 			  	tag_name = value.Twitter_post.tagname;
 			  	imagelink = value.Twitter_post.imagelink;
 			  	imageTitle = value.Twitter_post.imagetitle;
+			  	retweet_id = value.Twitter_post.retweet_id;
+			  	retweet_username = value.Twitter_post.retweet_username;
 			  	//get user data
 			  	$.each( data.json_user, function(key,value) {
 
@@ -81,17 +86,26 @@ $(document).ready(function(){
 			    	 //image			    		
 			    	if(imagelink!="")
 			    	{
-			    			image_data="<br/><a href='/CakePHP/Users/usersPage/"+post_username+"/"+imageTitle+"'>imageLink</a><br/><img src="+imagelink+" ><br/>"
+			    		image_data="<br/><a href='/CakePHP/Users/usersPage/"+post_username+"/"+imageTitle+"'>imageLink</a><br/><img src="+imagelink+" ><br/>"
 			    	}
 			    	else
 			    	{
 			    		image_data="";
 			    	}
+			    	
+			    	//retweet
+			    	if(retweet_id != 0)
+			    	{
+			    		//show Retweet status text
+			    		retweet_status = "Retweeted by "+ post_username + "<br/>";
 			    		
+			    		//change @username to retweet user but in DB still correct 
+			    		post_username=retweet_username;
+			    	}	
 
 			    		items.push(
 			    			"<div>"
-			    				   +"  "+
+			    				   +"  "+retweet_status+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>@" 
 			    				   +post_username+"</a></span> <br/>"+
 			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span>"+image_data+"<br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+
@@ -263,6 +277,7 @@ function retweet(username,tweet)
 	<br/>
 	<button onclick="update()">Submit</button>
 </form>
+<br/>
 
 <?php
 

@@ -174,7 +174,7 @@ class TweetsController extends AppController{
         $username = $this->Session->read('username');
         $this->set('username',$username);
 
-        if($_POST['retweet_id'] != null )
+        if($_POST['retweet_id'] != 0 )
         {
             $retweet_id = $_POST['retweet_id'];
             $retweet_username = $_POST['retweet_username'];
