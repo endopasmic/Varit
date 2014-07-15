@@ -94,10 +94,10 @@ $(document).ready(function(){
 			    	}
 			    	
 			    	//retweet
-			    	if(retweet_id != 0)
+			    	if(retweet_id != 0 )
 			    	{
 			    		//show Retweet status text
-			    		retweet_status = "Retweeted by "+ post_username + "<br/>";
+			    		retweet_status = "Retweeted by <a href='/CakePHP/Users/usersPage/"+post_username+"'>"+ post_username + "</a><br/>";
 			    		
 			    		//change @username to retweet user but in DB still correct 
 			    		post_username=retweet_username;
@@ -115,13 +115,13 @@ $(document).ready(function(){
 			    		);
 
 			    		//retweet
-			    		if(post_username !="<?php echo $username; ?>")
+			    		if(post_username !="<?php echo $username; ?>" && retweet_id==0)
 			    		{
 			    			items.push("<form action='/CakePHP/Tweets/retweet' id='retweet' method='post' enctype='multipart/form-data'><input type='hidden'name='retweet_id' value='"+id+"' ><input type='hidden' name='tweet' value='"+tweet+"'><input type='hidden'name='retweet_username' value='"+post_username+"' ><button onclick=\"retweet('" + post_username + "', '" + tweet+"');\">RETWEET</button></form>");
 			    		}
 
 			    		//delete
-					    if(post_username=="<?php echo $username ?>")
+					    if(post_username =="<?php echo $username ?>" || retweet_id!=0)
 					    {
 					    	items.push("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
 					    }
@@ -282,7 +282,7 @@ function retweet(username,tweet)
 <?php
 
 echo $this->Html->link($this->Form->button('Logout'), 
-                            array('action' => 'index'), 
+                            array('action' => 'logout'), 
                             array('escape'=>false,'title' => "Click to logout")
                            );//create link button
 

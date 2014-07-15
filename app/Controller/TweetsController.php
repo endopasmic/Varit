@@ -16,10 +16,7 @@ class TweetsController extends AppController{
 	public function index(){
 			//何もない
 	}
-	public function user_page($id = null){
 
-		$this->set('user_id',$this->Twitter_users->findById($id));
-	}
 /////////////////////////////////////////////////////////////////////////////////////////////////
 	//Twitter Login system
 	public function twitter_login(){
@@ -34,13 +31,13 @@ class TweetsController extends AppController{
 		//if form go post
 		if($this->request->is('post'))
 		{
-                    /*
+
 					$this->follow->create();
 	                $this->follow->save(array(
 	                		'username' => $this->request->data['Twitter_users']['Username'],
 	                		'follow_user' => $this->request->data['Twitter_users']['Username']
 	                	));
-                    */
+
 
 			$user = $this->Twitter_users->find( 'all', array(
 				'Username' => $this->request->data['Twitter_users']['Username'],
@@ -70,11 +67,16 @@ class TweetsController extends AppController{
     	}
 	}//end .twitter_login
 //////////////////////////////////////////////////////////////////////////////////////////////
-	public function twitter_logout()
+
+    public function logout()
 	{
+       $this->follow->deleteALL(array(
+                   'follow.status' => ""
+       ));
+
+        return $this->redirect(array('action' => 'index'));
 
 	}
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////
     
