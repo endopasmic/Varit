@@ -34,13 +34,13 @@ class TweetsController extends AppController{
 		//if form go post
 		if($this->request->is('post'))
 		{
-					/*
+                    /*
 					$this->follow->create();
 	                $this->follow->save(array(
 	                		'username' => $this->request->data['Twitter_users']['Username'],
 	                		'follow_user' => $this->request->data['Twitter_users']['Username']
 	                	));
-	                */
+                    */
 
 			$user = $this->Twitter_users->find( 'all', array(
 				'Username' => $this->request->data['Twitter_users']['Username'],
@@ -142,7 +142,6 @@ class TweetsController extends AppController{
 	//リプライデータを登録する
 	public function reply_tweet()
 	{
-
 		$this->layout = ('twitterlayout');
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
@@ -167,6 +166,40 @@ class TweetsController extends AppController{
 		}
 		$this->render('getTweet');
 	}
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function retweet()
+    {
+        $this->layout = ('twitterlayout');
+        $username = $this->Session->read('username');
+        $this->set('username',$username);
+
+        if($_POST['retweet_id'] != null )
+        {
+            $retweet_id = $_POST['retweet_id'];
+            $retweet_username = $_POST['retweet_username'];
+            $retweet_tweet = $_POST['tweet'];
+            //just for debug
+            echo var_dump($_POST['retweet_username']);
+            echo var_dump($_POST['retweet_id']);
+            echo var_dump($_POST['tweet']);
+
+            $this->Twitter_post->create();
+            $this->Twitter_post->save(array(
+                'username' => $username,
+                'reply_check' => 'FALSE',
+                'tag_status' => 'FALSE',
+                'retweet_id' => $retweet_id,
+                'retweet_username' => $retweet_username,
+                'tweet' => $retweet_tweet
+
+            ));
+        }
+
+        $this->redirect(array('action' => 'getTweet'));
+
+    }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -177,6 +210,7 @@ class TweetsController extends AppController{
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
 
+        //input file case
         if(is_uploaded_file($_FILES['image']['tmp_name']))
         {
             //input file
@@ -196,6 +230,8 @@ class TweetsController extends AppController{
             if($this->request->is('post'))//check this is send by post
             {
                 $tweet = $_POST['text'];
+
+
                 //if this no tag
                 if(strpos($tweet,"#")===false)
                 {
@@ -203,7 +239,7 @@ class TweetsController extends AppController{
                         'username' => $username,
                         'tweet' =>$tweet,
                         'reply_check' => 'FALSE',
-                        'tag_status' => 'FALSE'
+                        'tag_status' => 'FALSE',
                     ));
                 }
                 //# tag case

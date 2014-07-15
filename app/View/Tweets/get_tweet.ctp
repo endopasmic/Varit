@@ -23,6 +23,7 @@ var tag_status;
 var imagelink;
 var imageTitle;
 var image_data;
+var tweet;
 $(document).ready(function(){
 
 			//get json file
@@ -34,7 +35,7 @@ $(document).ready(function(){
 			  	//sperated json into value 	  	
 		  		id = value.Twitter_post.id;
 			  	post_username = value.Twitter_post.username;
-			  	var tweet = value.Twitter_post.tweet;
+			  	tweet = value.Twitter_post.tweet;
 			  	reply_tweet_id = value.Twitter_post.reply_tweet_id;
 			  	reply_tweet_username = value.Twitter_post.reply_tweet_username;
 			  	tag_status = value.Twitter_post.tag_status;
@@ -98,6 +99,12 @@ $(document).ready(function(){
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
 			    		);
+
+			    		//retweet
+			    		if(post_username !="<?php echo $username; ?>")
+			    		{
+			    			items.push("<form action='/CakePHP/Tweets/retweet' id='retweet' method='post' enctype='multipart/form-data'><input type='hidden'name='retweet_id' value='"+id+"' ><input type='hidden' name='tweet' value='"+tweet+"'><input type='hidden'name='retweet_username' value='"+post_username+"' ><button onclick=\"retweet('" + post_username + "', '" + tweet+"');\">RETWEET</button></form>");
+			    		}
 
 			    		//delete
 					    if(post_username=="<?php echo $username ?>")
@@ -194,8 +201,10 @@ function update()
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
 			    		);
-				    //delete
-					    if(post_username=="<?php echo $username ?>")
+				    	
+
+				    	//delete
+					    if(post_username=="<?php echo $username; ?>")
 					    {
 					    	items.push("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
 					    }
@@ -210,7 +219,26 @@ function update()
 function reply_tweet(id,username)
 {
 	$("#reply"+id).html("<form action='/CakePHP/Tweets/reply_tweet' method='post'><textarea name='reply_tweet'>@"+username+"</textarea><br/><input value='Tweet' type='submit'></input><input type='hidden' name='id' value='"+id+"'></input><input type='hidden' name='reply_username' value='"+username+"'></input> </form>");
+}
 
+function retweet(username,tweet)
+{
+	//confirm to user before goto ajax
+	if(confirm("Retweet this to your follower? \n"+"@"+username+"\n"+tweet)==false)
+	{
+		$("form#retweet").submit(function(){
+			$.ajax({
+				type: "POST",
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false
+			});
+
+			return false;
+		});
+		return;
+	}
 }
 
 </script>
@@ -235,6 +263,15 @@ function reply_tweet(id,username)
 	<br/>
 	<button onclick="update()">Submit</button>
 </form>
+
+<?php
+
+echo $this->Html->link($this->Form->button('Logout'), 
+                            array('action' => 'index'), 
+                            array('escape'=>false,'title' => "Click to logout")
+                           );//create link button
+
+?>
 
 <script>
 
