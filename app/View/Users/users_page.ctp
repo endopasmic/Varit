@@ -26,6 +26,9 @@ else if($username != $page_data['Twitter_users']['username'] )
 	echo $this->Form->end();
 }
 ?>
+<img src="<?php echo $page_data['Twitter_users']['wall_image'] ?>">
+
+
 
 <script type="text/javascript">
 

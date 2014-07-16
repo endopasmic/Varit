@@ -31,13 +31,11 @@ class TweetsController extends AppController{
 		//if form go post
 		if($this->request->is('post'))
 		{
-
-					$this->follow->create();
-	                $this->follow->save(array(
-	                		'username' => $this->request->data['Twitter_users']['Username'],
-	                		'follow_user' => $this->request->data['Twitter_users']['Username']
-	                	));
-
+			$this->follow->create();
+	        $this->follow->save(array(
+	               'username' => $this->request->data['Twitter_users']['Username'],
+	               'follow_user' => $this->request->data['Twitter_users']['Username']
+	         ));
 
 			$user = $this->Twitter_users->find( 'all', array(
 				'Username' => $this->request->data['Twitter_users']['Username'],
@@ -84,22 +82,48 @@ class TweetsController extends AppController{
     public function register() {
     	//set layout
     	$this->layout = ('twitterlayout');
-    	$username = $this->Session->read('username');
-		$this->set('username',$username);
+        $randomName = intval(rand());
 
         if($this->request->is('post')) 
         {
         	var_dump($this->request->data);//var_dump will show the type of value
             $this->Twitter_users->create();
             //var_dump($this->Twitter);
-            if ($this->Twitter_users->save($this->request->data) ) {
-                $this->Session->setFlash(__('Your post has been saved.'));
+            if ($this->request->is('post') )
+            {
+               $username = $this->request->data['Twitter_users']['username'];
+               //save image
+                $display_filename = '/files/'.$username.'_display.jpg';
+                $imagelink=rename($_FILES['display_image']['tmp_name'],WWW_ROOT.$display_filename);
+
+                $wall_filename = '/files/'.$username.'_wall.jpg';
+                $imagelink=rename($_FILES['wall_image']['tmp_name'],WWW_ROOT.$wall_filename);
+
+                //save data to DB
+                $this->Twitter_users->save($this->request->data);
+                $this->Twitter_users->save(array(
+                    'display_image' => "/CakePHP/app/webroot".$display_filename,
+                    'wall_image' => "/CakePHP/app/webroot".$wall_filename
+                ));
+
+               /*
+                    //input file
+                    $randomName = intval(rand());
+                    $filename = '/files/'.$randomName.'.jpg';
+                    $imagelink=rename($_FILES['image']['tmp_name'],WWW_ROOT.$filename);
+                    $this->set('filename',$filename);
+
+                    $this->Twitter_post->create();
+                    $this->Twitter_post->save(array(
+                        'imagelink' => "/CakePHP/app/webroot".$filename,
+                        'imagetitle' => $randomName
+                    ));
+                */
 
 
                 return $this->redirect(array('action' => 'index'));
             }
-            $this->Session->setFlash(__('Unable to add your post.'));
-            debug($this->Twitter_users->validationErrors);
+
         }
     }//end .register
 
@@ -234,7 +258,6 @@ class TweetsController extends AppController{
             if($this->request->is('post'))//check this is send by post
             {
                 $tweet = $_POST['text'];
-
 
                 //if this no tag
                 if(strpos($tweet,"#")===false)
