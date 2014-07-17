@@ -9,6 +9,9 @@
 if($username == $page_data['Twitter_users']['username'] )
 {
  echo "<h4>This is my page</h4>";
+ echo $this->Html->link('profile setting',array(
+ 		'action' => 'profile'
+ 	));
 }
 else if($username != $page_data['Twitter_users']['username'] )
 {
@@ -26,6 +29,7 @@ else if($username != $page_data['Twitter_users']['username'] )
 	echo $this->Form->end();
 }
 ?>
+<br/><br/>
 <img src="<?php echo $page_data['Twitter_users']['wall_image'] ?>">
 
 

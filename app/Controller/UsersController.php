@@ -76,8 +76,35 @@ class UsersController extends AppController{
 					));
 			}
 	}
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public function profile()
+    {
+        $this->layout = ('twitterlayout');
+        $username = $this->Session->read('username');
+        $this->set('username',$username);
+
+        $this->set('user_data',$this->Twitter_users->findByusername($username));
+        $user_data = $this->Twitter_users->findByusername($username);
+
+        if($this->request->is('post'))
+        {
+            //update text data
+            $this->Twitter_users->id = $user_data['Twitter_users']['id'];
+            $this->Twitter_users->save($this->request->data);
+
+            if($_FILES['display_image'] || $_FILES['wall_image'])
+            {
+                //update image
+                $display_filename = '/files/'.$username.'_display.jpg';
+                $imagelink=rename($_FILES['display_image']['tmp_name'],WWW_ROOT.$display_filename);
+
+                $wall_filename = '/files/'.$username.'_wall.jpg';
+                $imagelink=rename($_FILES['wall_image']['tmp_name'],WWW_ROOT.$wall_filename);
+
+            }
+        }
+
+    }
 
 }// end class
-
-?>

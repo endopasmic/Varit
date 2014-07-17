@@ -318,7 +318,7 @@ function retweet(username,tweet)
 ?>
 
 <form id="data" method="post" enctype="multipart/form-data">
-	<input type="text" name="text" />
+	<textarea name="text"></textarea>
 	<br/>
 	<input type="file" name="image" />
 	<br/>
