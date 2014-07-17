@@ -89,6 +89,7 @@ class UsersController extends AppController{
 
         if($this->request->is('post'))
         {
+            $new_username = $this->request->data['Twitter_users']['username'];
             //update text data
             $this->Twitter_users->id = $user_data['Twitter_users']['id'];
             $this->Twitter_users->save($this->request->data);
@@ -96,13 +97,35 @@ class UsersController extends AppController{
             if($_FILES['display_image'] || $_FILES['wall_image'])
             {
                 //update image
-                $display_filename = '/files/'.$username.'_display.jpg';
+                $display_filename = '/files/'.$new_username.'_display.jpg';
                 $imagelink=rename($_FILES['display_image']['tmp_name'],WWW_ROOT.$display_filename);
 
-                $wall_filename = '/files/'.$username.'_wall.jpg';
+                $wall_filename = '/files/'.$new_username.'_wall.jpg';
                 $imagelink=rename($_FILES['wall_image']['tmp_name'],WWW_ROOT.$wall_filename);
 
             }
+
+
+            $feilds = array(
+                'username' => "'$new_username'"
+            );
+            $conditions = array(
+                'username' => "$username"
+            );
+
+            $this->follow->updateAll(
+                array('follow_user' => "'$new_username'"),
+                array('follow_user' => "$username")
+            );
+            $this->follow->updateAll(
+                array('username' => "'$new_username'"),
+                array('username' => "$username")
+            );
+            $this->Twitter_post->updateAll($feilds, $conditions);
+
+
+
+            $this->Session->write('username', $new_username);
         }
 
     }
