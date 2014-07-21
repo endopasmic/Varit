@@ -43,9 +43,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     }
 
 
-#tweet_main{
-  margin-left: 22%;
-}
+
     
 #tweet_block{
   margin-top: 60px;
@@ -344,6 +342,7 @@ echo $this->Js->writeBuffer( array( 'inline' => 'true'));
 	echo $this->Html->css('profileImage');
 	echo $this->Html->css('toggleMenu');
   echo $this->Html->css('footer.css');
+  echo $this->Html->css('followTemplate.css');
 
 	echo $this->Html->script('ajaxupload.js');
 	echo $this->Html->script('header.js');

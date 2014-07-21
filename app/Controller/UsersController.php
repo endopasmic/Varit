@@ -7,7 +7,7 @@ class UsersController extends AppController{
 	//Prepare for AJAX
 	public $components = array('RequestHandler');
 	//import model
-	var $uses = array('Twitter_users','Twitter_post','follow');
+	var $uses = array('Twitter_users','Twitter_post','follow','tag');
 
 	public function index()
 	{
@@ -20,23 +20,29 @@ class UsersController extends AppController{
 	public function usersPage($pageuser= null,$userImage = null)
 	{
 		//set layout,username
-		$this->layout = ('twitterlayout');
+		$this->layout = ('userpageLayout');
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
 
 		//setdata
 		$this->set('page_data',$this->Twitter_users->findByusername($pageuser));
-		$this->set('follow_id',$this->follow->findByid($pageuser));
+		$this->set('follow_id',$this->follow->findByfollow_user($pageuser));
 
         //if click button render to following or follower
         if(isset($_POST['following']))
         {
+            $this->layout = ('followLayout');
+
             $this->set('following_data',$this->follow->find('all'));
+            $this->set('user_data',$this->Twitter_users->find('all'));
             $this->render('following');
         }
         if(isset($_POST['follower']))
         {
+            $this->layout = ('followLayout');
+
             $this->set('follower_data',$this->follow->find('all'));
+            $this->set('user_data',$this->Twitter_users->find('all'));
             $this->render('follower');
         }
 
@@ -122,6 +128,7 @@ class UsersController extends AppController{
                 array('username' => "$username")
             );
             $this->Twitter_post->updateAll($feilds, $conditions);
+            $this->tag->updateAll($feilds, $conditions);
 
 
 

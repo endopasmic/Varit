@@ -15,18 +15,22 @@ class TweetsController extends AppController{
 	//Welcome page no system
 	public function index(){
 			//何もない
+
+        $this->layout = ('twitterlayout');
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 	//Twitter Login system
 	public function twitter_login(){
+
 		//set 
-		$this->layout = ('twitterlayout');
+		$this->layout = ('loginLayout');
 		$this->set('user_data', $this->Twitter_users->find('all'));
 
 		//Count DB
 		$rows = $this->Twitter_users->find('count');
 		$data =	$this->Twitter_users->find('all');
+
 
 		//if form go post
 		if($this->request->is('post'))
@@ -37,16 +41,16 @@ class TweetsController extends AppController{
 	               'follow_user' => $this->request->data['Twitter_users']['Username']
 	         ));
 
-			$user = $this->Twitter_users->find( 'all', array(
-				'Username' => $this->request->data['Twitter_users']['Username'],
-				'Password' => $this->request->data['Twitter_users']['password']
-				));
+			$user = $this->Twitter_users->find( 'all');
 
 			$username= $this->request->data['Twitter_users']['Username'];
 			$password= $this->request->data['Twitter_users']['password'];
 
 			$this->Session->write('username', $username);
-			for($i=0;$i<=$rows;$i++)
+
+            echo $username;
+            echo $password;
+			for($i=0;$i<$rows;$i++)
 			{
 				//echo $user[$i]['Twitter']['username'];
 				echo "</br>";
@@ -54,12 +58,13 @@ class TweetsController extends AppController{
 				if($user[$i]['Twitter_users']['username']==$username&&
 				   $user[$i]['Twitter_users']['password']==$password)
 				{
-
 					return $this->redirect(array('action' => 'getTweet'));
 				}
-				else
+				else if($user[$i]['Twitter_users']['username']!=$username&&
+                    $user[$i]['Twitter_users']['password']!=$password)
 				{
-					echo "Username or Password incorrect";
+					$this->Session->setFlash('Username or password is are incorrect');
+
 				}
 			}
     	}
@@ -72,7 +77,7 @@ class TweetsController extends AppController{
                    'follow.status' => ""
        ));
 
-        return $this->redirect(array('action' => 'index'));
+        return $this->redirect(array('action' => 'twitter_login'));
 
 	}
 
@@ -81,7 +86,7 @@ class TweetsController extends AppController{
     //system for register twitter
     public function register() {
     	//set layout
-    	$this->layout = ('twitterlayout');
+        $this->layout = ('loginLayout');
         $randomName = intval(rand());
 
         if($this->request->is('post')) 
@@ -146,7 +151,7 @@ class TweetsController extends AppController{
 					'user_id' => array('user_id')
 			));
         $json_tag = $this->tag->find('all');
-		
+
 		$this->set(compact("json"));
 		$this->set(compact("json_user"));
 		$this->set(compact("json_follow"));
@@ -172,23 +177,64 @@ class TweetsController extends AppController{
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
 		$this->set('reply_user', $this->Twitter_post->find('all'));
-		
+
+
 		if($this->request->is('post'))
 		{
 			//reply_dataはPOSTで得たのreplyデータ
 			$reply_data=$_POST['reply_tweet'];
 			$reply_id = $_POST['id'];
             $reply_username = $_POST['reply_username'];
+            $tweet = $_POST['reply_tweet'];
 
-			$this->Twitter_post->create();
-			$this->Twitter_post->save(array(
-				'username' => $username,
-				'tweet' => $reply_data,
-				'reply_check' => 'TRUE',
-				'reply_tweet_id'=> $reply_id,
-                'reply_tweet_username' => $reply_username
+            //if this is no tag
+            if(strpos($tweet,"#")===false)
+            {
+                $this->Twitter_post->create();
+                $this->Twitter_post->save(array(
+                    'username' => $username,
+                    'tweet' => $reply_data,
+                    'reply_check' => 'TRUE',
+                    'reply_tweet_id'=> $reply_id,
+                    'reply_tweet_username' => $reply_username,
+                    'tag_status' => 'FALSE'
 
-			));
+                ));
+            }
+            //tag case
+            else
+            {
+                $tweetSplit = explode(" ",$tweet);
+                $tweetCount = substr_count($tweet, " ");
+                for($i=0;$i<=$tweetCount;$i++)
+                {
+                    $tweetFindTag = strpos($tweetSplit[$i],'#');
+                    if($tweetFindTag === FALSE)
+                    {
+                        $this->Twitter_post->save(array(
+                            'username' => $username,
+                            'tweet' => $tweetSplit[$i],
+                            'reply_check' => 'FALSE',
+                            'tag_status' => 'TRUE'
+                        ));
+                    }
+                    else if($tweetFindTag==0)
+                    {
+                        $this->Twitter_post->save(array(
+                            'tagname' => substr($tweetSplit[$i],1),
+                        ));
+
+                        $this->tag->create();
+                        $this->tag->save(array(
+                            'username' => $username,
+                            'tagname' => substr($tweetSplit[$i],1),
+                            'tag_tweet' => $tweet
+                        ));
+
+
+                    }
+                }//end loop
+            }
 		}
 		$this->render('getTweet');
 	}
@@ -242,7 +288,7 @@ class TweetsController extends AppController{
         if(is_uploaded_file($_FILES['image']['tmp_name']))
         {
             //input file
-            $randomName = intval(rand());
+            $randomName = md5(intval(rand()));
             $filename = '/files/'.$randomName.'.jpg';
             $imagelink=rename($_FILES['image']['tmp_name'],WWW_ROOT.$filename);
             $this->set('filename',$filename);
@@ -258,7 +304,10 @@ class TweetsController extends AppController{
             if($this->request->is('post'))//check this is send by post
             {
                 $tweet = $_POST['text'];
-
+             if($tweet=="")
+             {   $this->Session->setFlash('<script>alert("ツイート内容を入力してください")</script>');}
+             else
+             {
                 //if this no tag
                 if(strpos($tweet,"#")===false)
                 {
@@ -292,20 +341,22 @@ class TweetsController extends AppController{
                                 'tagname' => substr($tweetSplit[$i],1),
                             ));
 
+                           $tweet_id =  $this->Twitter_post->getLastInsertId();
+
                             $this->tag->create();
                             $this->tag->save(array(
                                 'username' => $username,
                                 'tagname' => substr($tweetSplit[$i],1),
-                                'tag_tweet' => $tweet
+                                'tag_tweet' => $tweet,
+                                'tweet_id' =>   $tweet_id
                             ));
 
 
                         }
                     }//end loop
-                }
-
-
-            }
+                }//end else
+             }
+            }// end if
 
 		else
 		{
@@ -339,11 +390,15 @@ class TweetsController extends AppController{
 			if($this->Twitter_post->delete($delete_id))
 			{
 				 echo "<script>alert('Delete complete')</script>";
+
+                $this->Session->setFlash('<script>alert("Delete Complete")</script>');
+                $this->redirect(array('action' => 'getTweet'));
 				 
 			}
 			else
 			{
-				echo "<script>alert('Delete Error')</script>";
+                $this->Session->setFlash('<script>alert("Delete Error")</script>');
+                $this->redirect(array('action' => 'getTweet'));
 
 			}
 			//return $this->redirect(array('action' => 'getTweet'));	

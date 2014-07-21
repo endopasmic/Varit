@@ -1,27 +1,59 @@
 
 <!-- this is view of twitter index -->
-<h1>Welcome to twitter</h1>
-
-Please login or register
-
-<?php
-	echo $this->Form->create('Twitter_users', array(
-											'type' => 'post'));
-	echo $this->Form->input('Username');//create textfeild
-	echo $this->Form->input('password');
-	echo $this->Form->end('Login');//End form
-	echo $this->Html->link($this->Form->button('Register'), 
-							array('action' => 'register'), 
-							array('escape'=>false,'title' => "Click to view somethin")
-						   );//create link button
-
-?>
-<br/><br/>
-List of registered 
-<br/>
-<?php
-	foreach ($user_data as $Tweet) {
-		echo $Tweet['Twitter_users']['username'];
-		echo "<br/>";
+<style type="text/css">
+	#flashMessage{
+		color: red;
+		font-weight: bold;
 	}
-?>
+</style>
+<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300'>
+<div id="login">
+
+			<h1><strong>Welcome.</strong> Please login.</h1>
+
+			<fieldset>
+			<?php
+			echo $this->Session->flash();
+
+				echo $this->Form->create('Twitter_users', array(
+														'type' => 'post'));
+				echo $this->Form->input('Username',array('id' => 'text',
+														'value' => 'Username',
+														'label' => false
+														));//create textfeild
+				echo $this->Form->input('password',array('type' => 'password',
+												  'style' => 'margin-top:10px;',	
+												   'value' => 'Password',
+												   'label' => false		
+								));
+			?>
+			
+			<br/><br/>
+
+			<?php	
+				echo $this->Form->input(' Login ',array(
+					'type' => 'submit',
+					'id' => 'submit',
+					'label' => false
+
+					));
+				echo $this->Form->end();//End form 
+			?>
+
+			<p><span class="btn-round">or</span></p>
+			
+			<button id="submit">
+			<?php
+
+				echo $this->Html->link('Register',array(
+					'action' => 'register',
+				));//create link button
+
+			?>
+			</button>
+
+</div>
+
+
+
+<!-------------->

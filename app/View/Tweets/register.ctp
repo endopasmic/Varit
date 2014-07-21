@@ -1,14 +1,33 @@
-<h1>This is Register page</h1> 
 
+<style type="text/css">
+	
+#text
+{
+	margin-top: 10px;
+}
+
+
+</style>
+
+<div id="login">
+<h1><strong>Register</strong></h1>
 <?php
 
 	echo $this->Form->create('Twitter_users',array(
 			'enctype' => 'multipart/form-data',
 		));
-	echo $this->Form->input('username');
-	echo $this->Form->input('password');
-	echo $this->Form->input('name');
-	echo $this->Form->input('email');
+	echo $this->Form->input('username',array(
+			'id' => 'text',
+		));
+	echo $this->Form->input('password',array(
+			'style' => 'margin-top:10px;'
+		));
+	echo $this->Form->input('name',array(
+			'id' => 'text'
+		));
+	echo $this->Form->input('email',array(
+			'id' => 'text'
+		));
 ?>
 	
 	Display image<br/>	
@@ -19,3 +38,5 @@
 <?php
 	echo $this->Form->end('Register');
 ?>
+
+</div>

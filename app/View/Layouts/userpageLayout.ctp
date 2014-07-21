@@ -5,6 +5,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +26,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
       font-family: ThaiSans Neue;
       src:url(http://endopasmic.azurewebsites.net/co-op/font/ThaiSansNeue-Light.otf);
     }
-	  @import url("/CakePHP/css/960.css");
+	  @import url("/CakePHP/css/960.css") screen and (min-width : 960px);
   
   	  body{
       font-family: ThaiSans Neue;
@@ -33,19 +34,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
       font-size: 20pt;
       margin-top: 80px;
       margin-left: 0px;
-      margin-bottom: 100px;
 
     }
 
-    a{
-      line-height: 0;
-      border-style: none !important;
-    }
 
-
-#tweet_main{
-  margin-left: 22%;
-}
     
 #tweet_block{
   margin-top: 60px;
@@ -193,18 +185,21 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
               inset 0px 2px 0px 0px rgba(255,255,255,0.5);
         top: 3px;
     }
+
+
+
+
 }
 
 @media only screen and (min-width : 960px) {
  
+
     a{
       color: #3BAFDA;
-
-
     }
     a:hover 
     {
-      color:#4FC1E9 !important;
+      color:#4FC1E9 !important;;
     }
     img
     {
@@ -310,9 +305,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
               inset 0px 2px 0px 0px rgba(255,255,255,0.5);
         top: 3px;
     }
-
-
-
+    a{
+      line-height: 0;
+      border-style: none !important;
+    }
 }
     
 
@@ -343,7 +339,8 @@ echo $this->Js->writeBuffer( array( 'inline' => 'true'));
 	echo $this->Html->css('fileButton');
 	echo $this->Html->css('profileImage');
 	echo $this->Html->css('toggleMenu');
-  echo $this->Html->css('footer.css');
+  echo $this->Html->css('userpage');
+
 
 	echo $this->Html->script('ajaxupload.js');
 	echo $this->Html->script('header.js');
@@ -383,8 +380,7 @@ show up on all of your views, include it here -->
          <?php echo $this->Html->link('Home',array('controller' => 'Tweets','action' => 'getTweet')); ?>
         
         <a href="/CakePHP/Users/usersPage/<?php echo $username; ?>">My Page</a>
-
-        <?php echo $this->Html->link('Profile setting',array('controller' => 'Users','action' => 'profile')); ?>        
+           <?php echo $this->Html->link('Profile setting',array('controller' => 'Users','action' => 'profile')); ?> 
 
        <?php echo $this->Html->link('Logout',array('controller' => 'Tweets','action' => 'logout')); ?>
       </div>
@@ -393,9 +389,6 @@ show up on all of your views, include it here -->
     
     <div class="page-wrap">                           <!--La page-->
 
-
-
-   
 </body>
 
 
