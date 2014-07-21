@@ -3,17 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1e340871-85c6-479b-b4b9-65479750d41f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Controller/TweetsController.php" afterPath="$PROJECT_DIR$/app/Controller/TweetsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Controller/UsersController.php" afterPath="$PROJECT_DIR$/app/Controller/UsersController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Users/follower.ctp" afterPath="$PROJECT_DIR$/app/View/Users/follower.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Users/following.ctp" afterPath="$PROJECT_DIR$/app/View/Users/following.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Layouts/followLayout.ctp" afterPath="$PROJECT_DIR$/app/View/Layouts/followLayout.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/get_tweet.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/get_tweet.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/index.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/index.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/register.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/register.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/tag.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/tag.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/twitter_login.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/twitter_login.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Layouts/twitterlayout.ctp" afterPath="$PROJECT_DIR$/app/View/Layouts/twitterlayout.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Layouts/userpageLayout.ctp" afterPath="$PROJECT_DIR$/app/View/Layouts/userpageLayout.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Users/users_page.ctp" afterPath="$PROJECT_DIR$/app/View/Users/users_page.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CakePHP.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +33,7 @@
       <file leaf-file-name="TweetsController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="300" column="9" selection-start="9854" selection-end="9854" vertical-scroll-proportion="0.565097" vertical-offset="4692" max-vertical-offset="7769">
+            <state line="333" column="54" selection-start="11229" selection-end="11229" vertical-scroll-proportion="0.3767313" vertical-offset="5389" max-vertical-offset="7718">
               <folding />
             </state>
           </provider>
@@ -87,7 +81,7 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="275" />
+    <option name="x" value="594" />
     <option name="width" value="981" />
     <option name="height" value="885" />
   </component>
@@ -248,7 +242,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="275" y="0" width="981" height="885" extended-state="0" />
+    <frame x="594" y="0" width="981" height="885" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -506,7 +500,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="300" column="9" selection-start="9854" selection-end="9854" vertical-scroll-proportion="0.565097" vertical-offset="4692" max-vertical-offset="7769">
+        <state line="333" column="54" selection-start="11229" selection-end="11229" vertical-scroll-proportion="0.3767313" vertical-offset="5389" max-vertical-offset="7718">
           <folding />
         </state>
       </provider>

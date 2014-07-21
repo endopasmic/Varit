@@ -16,7 +16,6 @@
 
 <div class="profile_detail">
 
-<h1><?php  echo "@".$page_data['Twitter_users']['username']; ?> page</h1>
 
 <!--//follow and unfollow button -->
 <?php
@@ -51,6 +50,8 @@ else if($username != $page_data['Twitter_users']['username'] )
 <br/><br/>
 <img style="width:100%;height:100%;margin-left:0;" class="profile square" src="<?php echo $page_data['Twitter_users']['wall_image'] ?>">
 
+<div><img style="max-width: 100px;max-height: 100px;" src="<?php echo $page_data['Twitter_users']['display_image'] ?>"></div>
+
 <script type="text/javascript">
 
 	function update()
@@ -68,7 +69,7 @@ else if($username != $page_data['Twitter_users']['username'] )
 	}
 
 </script>
-
+<h3><?php  echo "@".$page_data['Twitter_users']['username']; ?> page</h3>
 <!-- create menu Following followers -->
 <?php
 

@@ -274,7 +274,6 @@ class TweetsController extends AppController{
 
     }
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//Ajaxになるため最新のツイットをechoして.TweetUpdateにRenderされる
@@ -341,7 +340,7 @@ class TweetsController extends AppController{
                                 'tagname' => substr($tweetSplit[$i],1),
                             ));
 
-                           $tweet_id =  $this->Twitter_post->getLastInsertId();
+                            $tweet_id =  $this->Twitter_post->getLastInsertId();
 
                             $this->tag->create();
                             $this->tag->save(array(
@@ -350,8 +349,6 @@ class TweetsController extends AppController{
                                 'tag_tweet' => $tweet,
                                 'tweet_id' =>   $tweet_id
                             ));
-
-
                         }
                     }//end loop
                 }//end else

@@ -296,7 +296,7 @@ function update()
 
 function reply_tweet(id,username)
 {
-	$("#reply"+id).html("<form action='/CakePHP/Tweets/reply_tweet' method='post'><textarea name='reply_tweet'>@"+username+"</textarea><br/><input value='Tweet' type='submit'></input><input type='hidden' name='id' value='"+id+"'></input><input type='hidden' name='reply_username' value='"+username+"'></input> </form>");
+	$("#reply"+id).html("<br/><form action='/CakePHP/Tweets/reply_tweet' method='post'><br/><textarea name='reply_tweet'>@"+username+"</textarea><br/><input value='Tweet' type='submit'></input><input type='hidden' name='id' value='"+id+"'></input><input type='hidden' name='reply_username' value='"+username+"'></input> </form><br/>");
 }
 
 function retweet(username,tweet)

@@ -319,7 +319,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 </style>
 <div class="header">
  <label for="main-nav-check" class="toggle-menu">  
-    <img id="header_image" src="/CakePHP/files/Twitter_logo.png" width="45" height="30">
+    <img id="header_image" src="/CakePHP/files/Twitter_logo.png" width="70" height="48">
  </label>   
  <label> 
   <a href="/CakePHP/Users/profile">
