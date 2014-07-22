@@ -10,7 +10,6 @@ class TweetsController extends AppController{
 	//import model
 	var $uses = array('Twitter_users','Twitter_post','follow','tag');
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////
 	//Welcome page no system
 	public function index(){
@@ -159,11 +158,8 @@ class TweetsController extends AppController{
 		
 		$this->set('_serialize', array('json','json_user','json_follow','json_tag') );//sent json
 
-		if ($this->request->is('post')) 
-		 {
-		 	return $this->redirect(array('action' => 'tweet'));
-		 }
-		 //render view	
+        //if session = null
+
 
 	}//end post_tweet
 
@@ -273,7 +269,6 @@ class TweetsController extends AppController{
         $this->redirect(array('action' => 'getTweet'));
 
     }
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//Ajaxになるため最新のツイットをechoして.TweetUpdateにRenderされる
@@ -303,8 +298,8 @@ class TweetsController extends AppController{
             if($this->request->is('post'))//check this is send by post
             {
                 $tweet = $_POST['text'];
-             if($tweet=="")
-             {   $this->Session->setFlash('<script>alert("ツイート内容を入力してください")</script>');}
+             if($tweet=="" && !is_uploaded_file($_FILES['image']['tmp_name']))
+             { $this->Session->setFlash('<script>alert("ツイート内容を入力してください")</script>');}
              else
              {
                 //if this no tag
@@ -340,7 +335,7 @@ class TweetsController extends AppController{
                                 'tagname' => substr($tweetSplit[$i],1),
                             ));
 
-                            $tweet_id =  $this->Twitter_post->getLastInsertId();
+                           $tweet_id =  $this->Twitter_post->getLastInsertId();
 
                             $this->tag->create();
                             $this->tag->save(array(
@@ -349,6 +344,8 @@ class TweetsController extends AppController{
                                 'tag_tweet' => $tweet,
                                 'tweet_id' =>   $tweet_id
                             ));
+
+
                         }
                     }//end loop
                 }//end else
@@ -422,7 +419,6 @@ class TweetsController extends AppController{
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-
 }// End class
 
 

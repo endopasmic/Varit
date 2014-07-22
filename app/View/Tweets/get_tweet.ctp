@@ -13,6 +13,7 @@
 
 
 </style>
+
 <script type="text/javascript">
 //load json 
 var username;
@@ -283,9 +284,7 @@ function update()
                      +"<div id='reply"+id+"'></div>"+
                 "</div>"
               );
-
-    
-              
+  
         }
         });   
         });//end each    
@@ -327,7 +326,6 @@ function retweet(username,tweet)
 
 <div class="container_12 ">
 
-
       <div id="tweetArea">
 
       <br/><br/>
@@ -337,12 +335,10 @@ function retweet(username,tweet)
 
       <span style="font-size:30pt;"><?php echo "@$username"; ?></span>
 
-
-
       <form id="data" method="post" enctype="multipart/form-data">
-        <textarea id='textarea' id="text" name="text"></textarea>
+        <textarea id='textarea'  name="text"></textarea>
         <br/>
-        <input class="custom-file-input" style="margin-left: 16%;" type="file" name="image" />
+        <input class="custom-file-input" style="margin-left: 16%;" type="file" name="image" id="image" />
         <br/>
         <button onclick="update()" style="margin-left: 23%;">Submit</button>
       </form>
@@ -372,13 +368,16 @@ echo $this->Html->link($this->Form->button('Logout'),
 			data: formData,
 			async: false,
 			success: function(data){
-				alert("already submit")
+         update();	
+         		$('form#data').each(function(){
+                  this.reset();
+              });
 			},
 			cache: false,
 			contentType: false,
 			processData: false
 		});
-       $('textarea').val('');
+      
 		return false;
 
 	});

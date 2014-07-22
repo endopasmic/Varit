@@ -9,6 +9,16 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<?php 
+
+  if($username == "")
+  {
+    echo "<script>window.location.replace('/CakePHP/Tweets/logout');</script>";
+  }
+
+?>
+
 <title><?php echo $this->fetch('title'); ?></title>
 
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
