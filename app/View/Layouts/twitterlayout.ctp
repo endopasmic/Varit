@@ -33,7 +33,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     @font-face
     {
       font-family: ThaiSans Neue;
-      src:url(http://endopasmic.azurewebsites.net/co-op/font/ThaiSansNeue-Light.otf);
+      src:url(/CakePHP/app/webroot/font/ThaiSansNeue-Light.otf);
     }
 	  @import url("/CakePHP/css/960.css");
   

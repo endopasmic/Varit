@@ -9,9 +9,6 @@
       color:#4FC1E9 !important;;
     }
 
-
-
-
 </style>
 
 <script type="text/javascript">
@@ -32,6 +29,8 @@ var retweet_id;
 var retweet_username;
 var retweet_status="";
 var tweet_id;
+var i;
+var checkTag;
 
 
 var user_id;var use_user_id;
@@ -58,7 +57,6 @@ $(document).ready(function(){
 			  	imageTitle = value.Twitter_post.imagetitle;
 			  	retweet_id = value.Twitter_post.retweet_id;
 			  	retweet_username = value.Twitter_post.retweet_username;
-
 			  	
 			  	//get user data
 			  	$.each( data.json_user, function(key,value) {
@@ -77,7 +75,6 @@ $(document).ready(function(){
 				  	 	use_display_image = display_image;
 				  	 }
 
-
 			 	 });
 
 				//get follow data
@@ -87,8 +84,6 @@ $(document).ready(function(){
 			  	 follow_byuser = value.follow.follow_user;
 			  	 follow_user = value.follow.username;
 			  	 follow_status = value.follow.status;
-
-
 
 			  	if(follow_byuser==post_username)
 			  	{
@@ -134,6 +129,30 @@ $(document).ready(function(){
 			    		retweet_status="";
 			    	}	
 
+            //add link to tweet in tag case
+            checkTag = tweet.search("#");
+
+            if(checkTag>=0)
+            {            
+              tweet = tweet.split(" ");
+              length = tweet.length;
+              for(i=0;i<length;i++)
+              {
+                checkTag = tweet[i].search("#");
+                if(checkTag==0)
+                {
+                  tweet[i] = "<a href=/CakePHP/Tweets/tag/"+tweet[i].substring(1)+">"+tweet[i]+"</a>";
+                } 
+
+              }//end loop
+            }//end if
+            else if(checkTag<0)
+            {}
+            tweet = tweet.toString();
+            tweet = tweet.replace(/,/g, ' ');
+           
+
+
               //retweet
               if(post_username !="<?php echo $username; ?>" && retweet_id==0)
               {
@@ -151,7 +170,7 @@ $(document).ready(function(){
 			    				   +"<div class='profile'><img id='display_image' src='"+use_display_image+"'></div>"+"  "+retweet_status+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>"+use_name+"@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span>"+image_data+"<br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+
+			    				 "<span>"+tweet+"</span><br/>"+
 			    				    "<button id='reply' onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
@@ -348,14 +367,7 @@ function retweet(username,tweet)
 <div class="timeline"> <div id="get_data"></div> </div>
 </div><!-- end container 12  -->
 
-<?php
-/*
-echo $this->Html->link($this->Form->button('Logout'), 
-                            array('action' => 'logout'), 
-                            array('escape'=>false,'title' => "Click to logout")
-                           );//create link button
-*/
-?>
+
 
 <script>
 

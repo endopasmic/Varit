@@ -19,8 +19,6 @@ echo "#".$tagName['tag']['tagname'];
 ?>
 
 
-
-
 <div id="get_data"></div>
 
 </div>
@@ -92,19 +90,12 @@ $(document).ready(function(){
 
 			 	 });
 
-				//get follow data
-			  	$.each( data.json_follow, function(key,value) {
-
-			  	var follow_id = value.follow.id;
-			  	 follow_byuser = value.follow.follow_user;
-			  	 follow_user = value.follow.username;
-			  	 follow_status = value.follow.status;
 
 
 
-			  	if(tag_name == "<?php echo $tagData['tag']['tagname']; ?>")
+			  	if(id == "<?php echo $tagData['tag']['tweet_id']; ?>")
 			  	{
-			   		//debug reply link
+			  		   		//debug reply link
 			    	if(!reply_tweet_username)
 					{reply_tweet_username=document.URL;}
 					else
@@ -146,6 +137,28 @@ $(document).ready(function(){
 			    		retweet_status="";
 			    	}	
 
+            //add link to tweet in tag case
+            checkTag = tweet.search("#");
+
+            if(checkTag>0)
+            {            
+              tweet = tweet.split(" ");
+              length = tweet.length;
+              for(i=0;i<length;i++)
+              {
+                checkTag = tweet[i].search("#");
+                if(checkTag==0)
+                {
+                  tweet[i] = "<a href=/CakePHP/Tweets/tag/"+tweet[i].substring(1)+">"+tweet[i]+"</a>";
+                } 
+
+              }//end loop
+            }//end if
+            else if(checkTag<0)
+            {}
+            tweet = tweet.toString();
+            tweet = tweet.replace(/,/g, ' ');
+           
               //retweet
               if(post_username !="<?php echo $username; ?>" && retweet_id==0)
               {
@@ -163,14 +176,16 @@ $(document).ready(function(){
 			    				   +"<div class='profile'><img id='display_image' src='"+use_display_image+"'></div>"+"  "+retweet_status+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>"+use_name+"@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span>"+image_data+"<br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+
+			    				 "<span>"+tweet+"</span><br/>"+
 			    				    "<button id='reply' onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
 			    		);
+					
 			    		
 				}
-				});		
+
+	
 			  });//end each		 
 			  $("#get_data").html( items.join(""));
 			});

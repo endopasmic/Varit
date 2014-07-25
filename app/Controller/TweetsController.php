@@ -262,9 +262,7 @@ class TweetsController extends AppController{
 
             ));
         }
-
         $this->redirect(array('action' => 'getTweet'));
-
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -310,30 +308,34 @@ class TweetsController extends AppController{
                     ));
                 }
                 //# tag case
+
                 else
                 {
-                   $tweetSplit = explode(" ",$tweet);
-                   $tweetCount = substr_count($tweet, " ");
+                    $this->Twitter_post->save(array(
+                        'username' => $username,
+                        'tweet' => $tweet,
+                        'reply_check' => 'FALSE',
+                        'tag_status' => 'TRUE'
+                    ));
+
+                    $tweetSplit = explode(" ",$tweet);
+                    $tweetCount = substr_count($tweet, " ");
                     for($i=0;$i<=$tweetCount;$i++)
                     {
-                       $tweetFindTag = strpos($tweetSplit[$i],'#');
+                        $tweetFindTag = strpos($tweetSplit[$i],'#');
+
                         if($tweetFindTag === FALSE)
                         {
-                            $this->Twitter_post->save(array(
-                                'username' => $username,
-                                'tweet' => $tweetSplit[$i],
-                                'reply_check' => 'FALSE',
-                                'tag_status' => 'TRUE'
-                            ));
+
                         }
                         else if($tweetFindTag==0)
                         {
-                  
+
                             $this->Twitter_post->save(array(
                                 'tagname' => substr($tweetSplit[$i],1),
                             ));
 
-                           $tweet_id =  $this->Twitter_post->getLastInsertId();
+                            $tweet_id =  $this->Twitter_post->getLastInsertId();
 
                             $this->tag->create();
                             $this->tag->save(array(

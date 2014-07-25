@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1e340871-85c6-479b-b4b9-65479750d41f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Controller/TweetsController.php" afterPath="$PROJECT_DIR$/app/Controller/TweetsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Controller/UsersController.php" afterPath="$PROJECT_DIR$/app/Controller/UsersController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/get_tweet.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/get_tweet.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/index.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/index.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Tweets/tag.ctp" afterPath="$PROJECT_DIR$/app/View/Tweets/tag.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Layouts/twitterlayout.ctp" afterPath="$PROJECT_DIR$/app/View/Layouts/twitterlayout.ctp" />
     </list>
     <ignored path="CakePHP.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,7 +32,7 @@
       <file leaf-file-name="TweetsController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="330" column="18" selection-start="11275" selection-end="11275" vertical-scroll-proportion="0.60249305" vertical-offset="5175" max-vertical-offset="7616">
+            <state line="314" column="48" selection-start="10599" selection-end="10599" vertical-scroll-proportion="-1.7548476" vertical-offset="6605" max-vertical-offset="7650">
               <folding />
             </state>
           </provider>
@@ -80,8 +80,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="710" />
-    <option name="y" value="1" />
+    <option name="x" value="250" />
+    <option name="y" value="79" />
     <option name="width" value="891" />
     <option name="height" value="885" />
   </component>
@@ -242,7 +242,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="710" y="1" width="891" height="885" extended-state="0" />
+    <frame x="250" y="79" width="891" height="885" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -563,7 +563,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Controller/TweetsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="330" column="18" selection-start="11275" selection-end="11275" vertical-scroll-proportion="0.60249305" vertical-offset="5175" max-vertical-offset="7616">
+        <state line="314" column="48" selection-start="10599" selection-end="10599" vertical-scroll-proportion="-1.7548476" vertical-offset="6605" max-vertical-offset="7650">
           <folding />
         </state>
       </provider>
