@@ -368,7 +368,12 @@ echo $this->Html->link($this->Form->button('Logout'),
 			data: formData,
 			async: false,
 			success: function(data){
-         update();	
+            
+            if($('#textarea').val()=="")
+            {
+              alert('Please input text');
+            }
+            update();	
          		$('form#data').each(function(){
                   this.reset();
               });

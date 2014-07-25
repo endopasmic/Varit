@@ -13,9 +13,8 @@ class TweetsController extends AppController{
 //////////////////////////////////////////////////////////////////////////////////////////////
 	//Welcome page no system
 	public function index(){
-			//何もない
 
-        $this->layout = ('twitterlayout');
+        //$this->layout = ('twitterlayout');
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,8 +46,7 @@ class TweetsController extends AppController{
 
 			$this->Session->write('username', $username);
 
-            echo $username;
-            echo $password;
+
 			for($i=0;$i<$rows;$i++)
 			{
 				//echo $user[$i]['Twitter']['username'];
@@ -159,7 +157,6 @@ class TweetsController extends AppController{
 		$this->set('_serialize', array('json','json_user','json_follow','json_tag') );//sent json
 
         //if session = null
-
 
 	}//end post_tweet
 
@@ -331,6 +328,7 @@ class TweetsController extends AppController{
                         }
                         else if($tweetFindTag==0)
                         {
+                  
                             $this->Twitter_post->save(array(
                                 'tagname' => substr($tweetSplit[$i],1),
                             ));

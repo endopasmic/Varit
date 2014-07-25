@@ -102,6 +102,8 @@ class UsersController extends AppController{
 
             if($_FILES['display_image'] || $_FILES['wall_image'])
             {
+                error_reporting(0);
+
                 //update image
                 $display_filename = '/files/'.$new_username.'_display.jpg';
                 $imagelink=rename($_FILES['display_image']['tmp_name'],WWW_ROOT.$display_filename);
