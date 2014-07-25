@@ -185,8 +185,7 @@ $(document).ready(function(){
 
 function update()
 {
-  $('#text').val(" ");
-
+ 
       //get json file
       $.getJSON( "/CakePHP/Tweets/getTweet.json", function( data ) {
         var items = [];
@@ -205,7 +204,6 @@ function update()
           imageTitle = value.Twitter_post.imagetitle;
           retweet_id = value.Twitter_post.retweet_id;
           retweet_username = value.Twitter_post.retweet_username;
-
           
           //get user data
           $.each( data.json_user, function(key,value) {
@@ -224,7 +222,6 @@ function update()
               use_display_image = display_image;
              }
 
-
          });
 
         //get follow data
@@ -234,8 +231,6 @@ function update()
            follow_byuser = value.follow.follow_user;
            follow_user = value.follow.username;
            follow_status = value.follow.status;
-
-
 
           if(follow_byuser==post_username)
           {
@@ -281,6 +276,30 @@ function update()
               retweet_status="";
             } 
 
+            //add link to tweet in tag case
+            checkTag = tweet.search("#");
+
+            if(checkTag>=0)
+            {            
+              tweet = tweet.split(" ");
+              length = tweet.length;
+              for(i=0;i<length;i++)
+              {
+                checkTag = tweet[i].search("#");
+                if(checkTag==0)
+                {
+                  tweet[i] = "<a href=/CakePHP/Tweets/tag/"+tweet[i].substring(1)+">"+tweet[i]+"</a>";
+                } 
+
+              }//end loop
+            }//end if
+            else if(checkTag<0)
+            {}
+            tweet = tweet.toString();
+            tweet = tweet.replace(/,/g, ' ');
+           
+
+
               //retweet
               if(post_username !="<?php echo $username; ?>" && retweet_id==0)
               {
@@ -298,12 +317,12 @@ function update()
                      +"<div class='profile'><img id='display_image' src='"+use_display_image+"'></div>"+"  "+retweet_status+
                      "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>"+use_name+"@" 
                      +post_username+"</a></span> <br/>"+
-                   "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span>"+image_data+"<br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+
+                   "<span>"+tweet+"</span><br/>"+
                       "<button id='reply' onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
                      +"<div id='reply"+id+"'></div>"+
                 "</div>"
               );
-  
+              
         }
         });   
         });//end each    

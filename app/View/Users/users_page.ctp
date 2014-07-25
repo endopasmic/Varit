@@ -189,6 +189,29 @@ $(document).ready(function(){
 			    	{
 			    		image_data="";
 			    	}
+
+			    	//add link to tweet in tag case
+		            checkTag = tweet.search("#");
+
+		            if(checkTag>=0)
+		            {            
+		              tweet = tweet.split(" ");
+		              length = tweet.length;
+		              for(i=0;i<length;i++)
+		              {
+		                checkTag = tweet[i].search("#");
+		                if(checkTag==0)
+		                {
+		                  tweet[i] = "<a href=/CakePHP/Tweets/tag/"+tweet[i].substring(1)+">"+tweet[i]+"</a>";
+		                } 
+
+		              }//end loop
+		            }//end if
+		            else if(checkTag<0)
+		            {}
+		            tweet = tweet.toString();
+		            tweet = tweet.replace(/,/g, ' ');
+
 			    	
 			    	//retweet
 			    	if(retweet_id != 0 )
@@ -204,30 +227,31 @@ $(document).ready(function(){
 			    	{
 			    		retweet_status="";
 			    	}	
-
-              //retweet
+            //retweet
               if(post_username !="<?php echo $username; ?>" && retweet_id==0)
               {
-                     items.unshift("<form action='/CakePHP/Tweets/retweet' id='retweet' method='post' enctype='multipart/form-data'><input type='hidden'name='retweet_id' value='"+id+"' ><input type='hidden' name='imagelink' value='"+imagelink+"'><input type='hidden' name='tweet' value='"+tweet+"'><input type='hidden'name='retweet_username' value='"+post_username+"' ><button onclick=\"retweet('" + post_username + "', '" + tweet+"');\">RETWEET</button></form>");
+                items.unshift("<form action='/CakePHP/Tweets/retweet' id='retweet' method='post' enctype='multipart/form-data'><input type='hidden'name='retweet_id' value='"+id+"' ><input type='hidden' name='imagelink' value='"+imagelink+"'><input type='hidden' name='tweet' value='"+tweet+"'><input type='hidden'name='retweet_username' value='"+post_username+"' ><button onclick=\"retweet('" + post_username + "', '" + tweet+"');\">RETWEET</button></form>");
               }
 
               //delete
               if(post_username =="<?php echo $username ?>" || retweet_id!=0)
               {
-             items.unshift("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
+                items.unshift("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
               }
+
 			    		items.unshift(
 			    			"<div id='tweet_block'>"
 			    				   +"<div class='profile'><img id='display_image' src='"+use_display_image+"'></div>"+"  "+retweet_status+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>"+use_name+"@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span>"+image_data+"<br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+
+			    				 "<span>"+tweet+"</span><br/>"+
 			    				    "<button id='reply' onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
 			    		);
+			    		
 
-				}
+			}
 
 			  });//end each		  
 			  $("#get_data").html( items.join("") );
@@ -280,7 +304,10 @@ function retweet(username,tweet)
 }
 </script>
 
-
+<?php 
+if($username == $page_data['Twitter_users']['username'] )
+{ 
+?>
 
       <div id="tweetArea">
 
@@ -303,11 +330,23 @@ function retweet(username,tweet)
       <br/>
 
       </div><!-- end tweet area -->
-<div class="timeline"> <div id="get_data"></div> </div>
 
+
+
+
+<?php } ?>
+
+<div class="timeline"> <div id="get_data"></div> </div>
 <div id="get_data"></div>
 <div id="sending-js-submit"></div>
 <div id="result-js-submit"></div>
+
+
+<?php 
+if($username == $page_data['Twitter_users']['username'] )
+{ 
+?>
+
 
 <?php
 
@@ -322,13 +361,6 @@ function retweet(username,tweet)
 
 ?>
 <!-- ツイートするところ。自分のページしかみえない -->
-
-<?php
-if($username == $page_data['Twitter_users']['username'] )
-{
-?>
-
-
 
 
 
@@ -411,6 +443,29 @@ function refresh()
 			    	{
 			    		image_data="";
 			    	}
+
+			    	//add link to tweet in tag case
+		            checkTag = tweet.search("#");
+
+		            if(checkTag>=0)
+		            {            
+		              tweet = tweet.split(" ");
+		              length = tweet.length;
+		              for(i=0;i<length;i++)
+		              {
+		                checkTag = tweet[i].search("#");
+		                if(checkTag==0)
+		                {
+		                  tweet[i] = "<a href=/CakePHP/Tweets/tag/"+tweet[i].substring(1)+">"+tweet[i]+"</a>";
+		                } 
+
+		              }//end loop
+		            }//end if
+		            else if(checkTag<0)
+		            {}
+		            tweet = tweet.toString();
+		            tweet = tweet.replace(/,/g, ' ');
+			    	
 			    	
 			    	//retweet
 			    	if(retweet_id != 0 )
@@ -427,27 +482,29 @@ function refresh()
 			    		retweet_status="";
 			    	}	
 
-              //retweet
+             //retweet
               if(post_username !="<?php echo $username; ?>" && retweet_id==0)
               {
-                     items.unshift("<form action='/CakePHP/Tweets/retweet' id='retweet' method='post' enctype='multipart/form-data'><input type='hidden'name='retweet_id' value='"+id+"' ><input type='hidden' name='imagelink' value='"+imagelink+"'><input type='hidden' name='tweet' value='"+tweet+"'><input type='hidden'name='retweet_username' value='"+post_username+"' ><button onclick=\"retweet('" + post_username + "', '" + tweet+"');\">RETWEET</button></form>");
+                items.unshift("<form action='/CakePHP/Tweets/retweet' id='retweet' method='post' enctype='multipart/form-data'><input type='hidden'name='retweet_id' value='"+id+"' ><input type='hidden' name='imagelink' value='"+imagelink+"'><input type='hidden' name='tweet' value='"+tweet+"'><input type='hidden'name='retweet_username' value='"+post_username+"' ><button onclick=\"retweet('" + post_username + "', '" + tweet+"');\">RETWEET</button></form>");
               }
 
               //delete
               if(post_username =="<?php echo $username ?>" || retweet_id!=0)
               {
-             items.unshift("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
+                items.unshift("<form method='post' action='/CakePHP/Tweets/delete_tweet'><input type=submit value='DELETE'></input><input type='hidden' value='"+id+"' name='delete_id'></input></form>");
               }
+
 			    		items.unshift(
 			    			"<div id='tweet_block'>"
 			    				   +"<div class='profile'><img id='display_image' src='"+use_display_image+"'></div>"+"  "+retweet_status+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>"+use_name+"@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span><a href='"+reply_tweet_username+"'>"+tweet+"</a></span>"+image_data+"<br/><a href='tag/"+tagLink+"'>"+tag_name+"</a><br/>"+
+			    				 "<span>"+tweet+"</span><br/>"+
 			    				    "<button id='reply' onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
 			    		);
+			    		
 
 				}
 
@@ -472,6 +529,7 @@ function refresh()
 
 </script>
 <div class="container_12">
+
 <?php } ?>
 
 <script>

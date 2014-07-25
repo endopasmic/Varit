@@ -137,27 +137,28 @@ $(document).ready(function(){
 			    		retweet_status="";
 			    	}	
 
-            //add link to tweet in tag case
-            checkTag = tweet.search("#");
 
-            if(checkTag>0)
-            {            
-              tweet = tweet.split(" ");
-              length = tweet.length;
-              for(i=0;i<length;i++)
-              {
-                checkTag = tweet[i].search("#");
-                if(checkTag==0)
-                {
-                  tweet[i] = "<a href=/CakePHP/Tweets/tag/"+tweet[i].substring(1)+">"+tweet[i]+"</a>";
-                } 
+			            //add link to tweet in tag case
+			            checkTag = tweet.search("#");
 
-              }//end loop
-            }//end if
-            else if(checkTag<0)
-            {}
-            tweet = tweet.toString();
-            tweet = tweet.replace(/,/g, ' ');
+			            if(checkTag>=0)
+			            {            
+			              tweet = tweet.split(" ");
+			              length = tweet.length;
+			              for(i=0;i<length;i++)
+			              {
+			                checkTag = tweet[i].search("#");
+			                if(checkTag==0)
+			                {
+			                  tweet[i] = "<a href=/CakePHP/Tweets/tag/"+tweet[i].substring(1)+">"+tweet[i]+"</a>";
+			                } 
+
+			              }//end loop
+			            }//end if
+			            else if(checkTag<0)
+			            {}
+			            tweet = tweet.toString();
+			            tweet = tweet.replace(/,/g, ' ');
            
               //retweet
               if(post_username !="<?php echo $username; ?>" && retweet_id==0)
