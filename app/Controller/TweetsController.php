@@ -231,6 +231,7 @@ class TweetsController extends AppController{
 		}
 		$this->render('getTweet');
 	}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function retweet()
@@ -367,8 +368,6 @@ class TweetsController extends AppController{
         $this->set('username',$username);
        $this->render('getTweet');
     }
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	public function delete_tweet()

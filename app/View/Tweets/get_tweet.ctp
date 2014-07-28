@@ -170,7 +170,7 @@ $(document).ready(function(){
 			    				   +"<div class='profile'><img id='display_image' src='"+use_display_image+"'></div>"+"  "+retweet_status+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>"+use_name+"@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span>"+tweet+"</span><br/>"+
+			    				 "<span>"+tweet+"</span>"+image_data+"<br/>"+
 			    				    "<button id='reply' onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
@@ -317,7 +317,7 @@ function update()
                      +"<div class='profile'><img id='display_image' src='"+use_display_image+"'></div>"+"  "+retweet_status+
                      "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>"+use_name+"@" 
                      +post_username+"</a></span> <br/>"+
-                   "<span>"+tweet+"</span><br/>"+
+                   "<span>"+tweet+"</span>"+image_data+"<br/>"+
                       "<button id='reply' onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
                      +"<div id='reply"+id+"'></div>"+
                 "</div>"
@@ -400,9 +400,9 @@ function retweet(username,tweet)
 			async: false,
 			success: function(data){
             
-            if($('#textarea').val()=="")
+            if($('#textarea').val()=="" && $('input[type="file"]').val()=="")
             {
-              alert('Please input text');
+              alert('Please input text or image');
             }
             update();	
          		$('form#data').each(function(){
