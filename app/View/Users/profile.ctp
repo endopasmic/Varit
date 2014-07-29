@@ -8,6 +8,10 @@
 	.submit
 	{
 		float: left;
+	}
+	#flashMessage
+	{
+      color:red !important;
 	}	
 
 </style>
@@ -18,6 +22,7 @@
 
 <?php
 
+	 echo $this->Session->flash();
 	echo $this->Form->create('Twitter_users',array(
 			'enctype' => 'multipart/form-data',
 		));

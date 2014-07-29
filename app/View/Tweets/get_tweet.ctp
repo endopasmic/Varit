@@ -2,7 +2,6 @@
 
 
 <?php echo $this->Session->flash(); ?>
-
 <style type="text/css">
       a:hover 
     {
@@ -10,7 +9,6 @@
     }
 
 </style>
-
 <script type="text/javascript">
 //load json 
 var username;
@@ -31,7 +29,7 @@ var retweet_status="";
 var tweet_id;
 var i;
 var checkTag;
-
+var tweet_ori;
 
 var user_id;var use_user_id;
 var name;var use_name;
@@ -49,6 +47,7 @@ $(document).ready(function(){
 		  		id = value.Twitter_post.id;
 			  	post_username = value.Twitter_post.username;
 			  	tweet = value.Twitter_post.tweet;
+          tweet_ori = value.Twitter_post.tweet;
 			  	reply_tweet_id = value.Twitter_post.reply_tweet_id;
 			  	reply_tweet_username = value.Twitter_post.reply_tweet_username;
 			  	tag_status = value.Twitter_post.tag_status;
@@ -93,7 +92,7 @@ $(document).ready(function(){
 					else
 					{reply_tweet_username="/CakePHP/Users/usersPage/"+reply_tweet_username}
 					
-					//debug no tag tweet
+					  //debug no tag tweet
 			    	if(tag_status=='FALSE')
 			    		{tagName=" ";}
 			    	if(tagUser!=post_username)
@@ -156,7 +155,7 @@ $(document).ready(function(){
               //retweet
               if(post_username !="<?php echo $username; ?>" && retweet_id==0)
               {
-                items.unshift("<form action='/CakePHP/Tweets/retweet' id='retweet' method='post' enctype='multipart/form-data'><input type='hidden'name='retweet_id' value='"+id+"' ><input type='hidden' name='imagelink' value='"+imagelink+"'><input type='hidden' name='tweet' value='"+tweet+"'><input type='hidden'name='retweet_username' value='"+post_username+"' ><button onclick=\"retweet('" + post_username + "', '" + tweet+"');\">RETWEET</button></form>");
+                      items.unshift("<form action='/CakePHP/Tweets/retweet' id='retweet' method='post' enctype='multipart/form-data'><input type='hidden'name='retweet_id' value='"+id+"' ><input type='hidden' name='imagelink' value='"+imagelink+"'><input type='hidden' name='tweet' value='"+tweet+"'><input type='hidden'name='retweet_username' value='"+post_username+"' ><button type='button' onclick=\"retweet('" + post_username + "', '" + tweet+"');\">RETWEET</button></form>");
               }
 
               //delete
@@ -185,7 +184,6 @@ $(document).ready(function(){
 
 function update()
 {
- 
       //get json file
       $.getJSON( "/CakePHP/Tweets/getTweet.json", function( data ) {
         var items = [];
@@ -298,8 +296,6 @@ function update()
             tweet = tweet.toString();
             tweet = tweet.replace(/,/g, ' ');
            
-
-
               //retweet
               if(post_username !="<?php echo $username; ?>" && retweet_id==0)
               {
@@ -323,8 +319,8 @@ function update()
                 "</div>"
               );
               
-        }
-        });   
+          }
+          });   
         });//end each    
         $("#get_data").html( items.join(""));
       });
@@ -338,26 +334,36 @@ function reply_tweet(id,username)
 
 function retweet(username,tweet)
 {
-	//confirm to user before goto ajax
-	if(confirm("Retweet this to your follower? \n"+"@"+username+"\n"+tweet)==false)
-	{
-		
-		$("form#retweet").submit(function(){
-			$.ajax({
-				type: "POST",
-				async: false,
-				cache: false,
-				contentType: false,
-				processData: false
-			});
+  var check = confirm("Retweet this to your follower? \n"+"@"+username+"\n"+tweet_ori);
+  if(check===false){
+    //e.preventDefault();
+    alert('FALSE');
+  }
+  else{
+    alert('TRUE');
+    $("form#retweet").submit();
+  }
 
-			return false;
-		});
-	
-		return;
-
-	}
+        
 }
+
+
+/*
+    //confirm to user before goto ajax
+
+    $("#retweet").click(function (e) {
+
+        if(confirm("Retweet this to your follower? \n"===false) )
+        {
+          e.preventDefault(); // this will prevent from submitting the form.
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+    });
+*/
 
 </script>
 

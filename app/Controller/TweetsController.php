@@ -7,6 +7,7 @@ class TweetsController extends AppController{
 	public $helpers = array('Html', 'Form', 'Js','Text' );
 	public $components = array('RequestHandler','Session');
 
+
 	//import model
 	var $uses = array('Twitter_users','Twitter_post','follow','tag');
 
@@ -14,7 +15,7 @@ class TweetsController extends AppController{
 	//Welcome page no system
 	public function index(){
 
-        //$this->layout = ('twitterlayout');
+
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +29,6 @@ class TweetsController extends AppController{
 		//Count DB
 		$rows = $this->Twitter_users->find('count');
 		$data =	$this->Twitter_users->find('all');
-
 
 		//if form go post
 		if($this->request->is('post'))
@@ -45,7 +45,6 @@ class TweetsController extends AppController{
 			$password= $this->request->data['Twitter_users']['password'];
 
 			$this->Session->write('username', $username);
-
 
 			for($i=0;$i<$rows;$i++)
 			{
@@ -88,45 +87,44 @@ class TweetsController extends AppController{
 
         if($this->request->is('post')) 
         {
-        	var_dump($this->request->data);//var_dump will show the type of value
-            $this->Twitter_users->create();
-            //var_dump($this->Twitter);
-            if ($this->request->is('post') )
+            if($this->request->data['Twitter_users']['username'] == ""
+                ||$this->request->data['Twitter_users']['password'] == ""
+                ||$this->request->data['Twitter_users']['name'] == ""
+                ||$this->request->data['Twitter_users']['email'] == "")
             {
-               $username = $this->request->data['Twitter_users']['username'];
-               //save image
-                $display_filename = '/files/'.$username.'_display.jpg';
-                $imagelink=rename($_FILES['display_image']['tmp_name'],WWW_ROOT.$display_filename);
-
-                $wall_filename = '/files/'.$username.'_wall.jpg';
-                $imagelink=rename($_FILES['wall_image']['tmp_name'],WWW_ROOT.$wall_filename);
-
-                //save data to DB
-                $this->Twitter_users->save($this->request->data);
-                $this->Twitter_users->save(array(
-                    'display_image' => "/CakePHP/app/webroot".$display_filename,
-                    'wall_image' => "/CakePHP/app/webroot".$wall_filename
-                ));
-
-               /*
-                    //input file
-                    $randomName = intval(rand());
-                    $filename = '/files/'.$randomName.'.jpg';
-                    $imagelink=rename($_FILES['image']['tmp_name'],WWW_ROOT.$filename);
-                    $this->set('filename',$filename);
-
-                    $this->Twitter_post->create();
-                    $this->Twitter_post->save(array(
-                        'imagelink' => "/CakePHP/app/webroot".$filename,
-                        'imagetitle' => $randomName
-                    ));
-                */
-
-
-                return $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash('Every field must not empty ');
+                $this->redirect(array('action' => 'register'));
             }
 
-        }
+            if(!is_uploaded_file($_FILES['display_image']) || !is_uploaded_file($_FILES['wall_image'])  )
+            {
+                    $this->Session->setFlash('Please upload image files');
+                    $this->redirect(array('action' => 'register'));
+            }
+
+                //var_dump($this->request->data);//var_dump will show the type of value
+                $this->Twitter_users->create();
+                //var_dump($this->Twitter);
+
+                   $username = $this->request->data['Twitter_users']['username'];
+                   //save image
+                    $display_filename = '/files/'.$username.'_display.jpg';
+                    $imagelink=rename($_FILES['display_image']['tmp_name'],WWW_ROOT.$display_filename);
+
+                    $wall_filename = '/files/'.$username.'_wall.jpg';
+                    $imagelink=rename($_FILES['wall_image']['tmp_name'],WWW_ROOT.$wall_filename);
+
+                    //save data to DB
+                    $this->Twitter_users->save($this->request->data);
+                    $this->Twitter_users->save(array(
+                        'display_image' => "/CakePHP/app/webroot".$display_filename,
+                        'wall_image' => "/CakePHP/app/webroot".$wall_filename
+                    ));
+
+                    return $this->redirect(array('action' => 'twitter_login'));
+            }
+
+
     }//end .register
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -376,13 +374,32 @@ class TweetsController extends AppController{
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
 
+        // unlink($_SERVER['DOCUMENT_ROOT']."/CakePHP/app/webroot/files/673b0a8f69f725746a7855824c7da178.jpg");
 		if($this->request->is('post'))
 		{
 			$delete_id = $_POST['delete_id'];
 
-			if($this->Twitter_post->delete($delete_id))
+            $delete_data = $this->Twitter_post->findByid($delete_id);
+            $tag_id = $this->tag->findBytweet_id($delete_id);
+
+
+             //if will delete tweet text
+            if($this->Twitter_post->delete($delete_id))
 			{
-				 echo "<script>alert('Delete complete')</script>";
+                //this is for delete image
+                unlink($_SERVER['DOCUMENT_ROOT']."/CakePHP/app/webroot/files/".$delete_data['Twitter_post']['imagetitle'].".jpg");
+
+                //check tag
+                if(isset($tag_id['tag']['id']) === true)
+                {
+                    $this->tag->delete($tag_id['tag']['id']);
+                }
+                else if( isset($tag_id['tag']['id']))
+                {
+
+                }
+
+                echo "<script>alert('Delete complete')</script>";
 
                 $this->Session->setFlash('<script>alert("Delete Complete")</script>');
                 $this->redirect(array('action' => 'getTweet'));
@@ -392,7 +409,6 @@ class TweetsController extends AppController{
 			{
                 $this->Session->setFlash('<script>alert("Delete Error")</script>');
                 $this->redirect(array('action' => 'getTweet'));
-
 			}
 			//return $this->redirect(array('action' => 'getTweet'));	
 		}
@@ -402,7 +418,6 @@ class TweetsController extends AppController{
 
     public function tag($tagName = null)
     {
-
         //set
         $this->layout = ('twitterlayout');
         $username = $this->Session->read('username');

@@ -240,11 +240,11 @@ $(document).ready(function(){
               }
 
 			    		items.unshift(
-			    			"<div id='tweet_block'>"
+				    			"<div id='tweet_block'>"
 			    				   +"<div class='profile'><img id='display_image' src='"+use_display_image+"'></div>"+"  "+retweet_status+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>"+use_name+"@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span>"+tweet+"</span><br/>"+
+			    				 "<span>"+tweet+"</span>"+image_data+"<br/>"+
 			    				    "<button id='reply' onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
@@ -499,7 +499,7 @@ function refresh()
 			    				   +"<div class='profile'><img id='display_image' src='"+use_display_image+"'></div>"+"  "+retweet_status+
 			    				   "<span id='username" + id+ "'><a href='/CakePHP/Users/usersPage/"+post_username+"'>"+use_name+"@" 
 			    				   +post_username+"</a></span> <br/>"+
-			    				 "<span>"+tweet+"</span><br/>"+
+			    				 "<span>"+tweet+"</span>"+image_data+"<br/>"+
 			    				    "<button id='reply' onclick=\"reply_tweet(" + id + ", '" + post_username+"');\">REPLY</button>"
 			    				   +"<div id='reply"+id+"'></div>"+
 			    			"</div>"
@@ -525,8 +525,6 @@ function refresh()
 			});
 }
 
-
-
 </script>
 <div class="container_12">
 
@@ -543,7 +541,12 @@ function refresh()
 			data: formData,
 			async: false,
 			success: function(data){
-				alert("already submit")
+
+			if($('#textarea').val()=="" && $('input[type="file"]').val()=="")
+            {
+              alert('Please input text or image');
+            }
+
 			},
 			cache: false,
 			contentType: false,

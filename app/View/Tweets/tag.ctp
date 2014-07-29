@@ -1,4 +1,6 @@
-<div id="tweet_main">
+
+
+<div id="tweet_main" style="margin-left:37%;">
 
 <h2>
 Result for
@@ -91,9 +93,7 @@ $(document).ready(function(){
 			 	 });
 
 
-
-
-			  	if(id == "<?php echo $tagData['tag']['tweet_id']; ?>")
+			  	if(tag_name == "<?php echo $tagName['tag']['tagname']; ?>")
 			  	{
 			  		   		//debug reply link
 			    	if(!reply_tweet_username)

@@ -11,7 +11,7 @@ $(document).ready(function(){
   console.log();
   if(checkTag>=0)
     {
-      alert();
+     // alert();
       text = text.split(" ");
       length = text.length;
       for(i=0;i<length;i++)

@@ -24,7 +24,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     @font-face
     {
       font-family: ThaiSans Neue;
-      src:url(http://endopasmic.azurewebsites.net/co-op/font/ThaiSansNeue-Light.otf);
+      src:url(/CakePHP/app/webroot/font/ThaiSansNeue-Light.otf);
     }
 	  @import url("/CakePHP/css/960.css") screen and (min-width : 960px);
   
@@ -36,6 +36,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
       margin-left: 0px;
 
     }
+
+      a:hover 
+    {
+      color:#4FC1E9 !important;;
+    }
+
 
 
     
@@ -185,9 +191,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
               inset 0px 2px 0px 0px rgba(255,255,255,0.5);
         top: 3px;
     }
-
-
-
 
 }
 
@@ -380,7 +383,8 @@ show up on all of your views, include it here -->
          <?php echo $this->Html->link('Home',array('controller' => 'Tweets','action' => 'getTweet')); ?>
         
         <a href="/CakePHP/Users/usersPage/<?php echo $username; ?>">My Page</a>
-           <?php echo $this->Html->link('Profile setting',array('controller' => 'Users','action' => 'profile')); ?> 
+
+        <?php echo $this->Html->link('Profile setting',array('controller' => 'Users','action' => 'profile')); ?>        
 
        <?php echo $this->Html->link('Logout',array('controller' => 'Tweets','action' => 'logout')); ?>
       </div>
@@ -388,6 +392,7 @@ show up on all of your views, include it here -->
     </nav>                                    <!--FIN NAV-->
     
     <div class="page-wrap">                           <!--La page-->
+
 
 </body>
 

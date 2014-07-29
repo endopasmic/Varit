@@ -50,6 +50,9 @@ class UsersController extends AppController{
         if($pageuser && $userImage != null)
         {
             $this->set('status_data',$this->Twitter_post->findByimagetitle($userImage));
+            $status_data = $this->Twitter_post->findByimagetitle($userImage);
+            $this->set('user_data',$this->Twitter_users->findByusername($status_data['Twitter_post']['username']));
+
             $this->render('status');
         }
 
@@ -95,6 +98,21 @@ class UsersController extends AppController{
 
         if($this->request->is('post'))
         {
+            if($this->request->data['Twitter_users']['username'] == ""
+                ||$this->request->data['Twitter_users']['password'] == ""
+                ||$this->request->data['Twitter_users']['name'] == ""
+                ||$this->request->data['Twitter_users']['email'] == "")
+            {
+                $this->Session->setFlash('Every field must not empty ');
+                $this->redirect(array('action' => 'profile'));
+            }
+
+            if(!is_uploaded_file($_FILES['display_image']) || !is_uploaded_file($_FILES['wall_image'])  )
+            {
+                $this->Session->setFlash('Please upload image files');
+                $this->redirect(array('action' => 'profile'));
+            }
+
             $new_username = $this->request->data['Twitter_users']['username'];
             //update text data
             $this->Twitter_users->id = $user_data['Twitter_users']['id'];
