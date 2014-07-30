@@ -11,10 +11,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <head>
 
 <?php 
-
+  //check is session is null will logput
   if($username == "")
   {
-    echo "<script>window.location.replace('/CakePHP/Tweets/logout');</script>";
+    echo "<script>window.location.replace('/CakePHP/Users/logout');</script>";
   }
 
 ?>
@@ -396,7 +396,7 @@ show up on all of your views, include it here -->
 
         <?php echo $this->Html->link('Profile setting',array('controller' => 'Users','action' => 'profile')); ?>        
 
-       <?php echo $this->Html->link('Logout',array('controller' => 'Tweets','action' => 'logout')); ?>
+       <?php echo $this->Html->link('Logout',array('controller' => 'Users','action' => 'logout')); ?>
       </div>
       <div id="effet_ombre"></div>
     </nav>                                    <!--FIN NAV-->

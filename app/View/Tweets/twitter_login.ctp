@@ -46,6 +46,7 @@
 			<?php
 
 				echo $this->Html->link('Register',array(
+					'controller' => 'Users',
 					'action' => 'register',
 				));//create link button
 

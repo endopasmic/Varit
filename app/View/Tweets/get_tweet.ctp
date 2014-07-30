@@ -374,7 +374,7 @@ function delete_tweet()
         <br/>
         <input class="custom-file-input" style="margin-left: 16%;" type="file" name="image" id="image" />
         <br/>
-        <button onclick="update()" style="margin-left: 23%;">Submit</button>
+        <button onclick="update()" style="margin-left: 23%;">Tweet</button>
       </form>
       <br/>
 

@@ -76,9 +76,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
-/*import responsive css*/
-@media only screen and (max-width : 960px){
-    
+
 
     a{
       color: #3BAFDA;
@@ -194,7 +192,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 }
 
-@media only screen and (min-width : 960px) {
  
 
     a{
@@ -312,7 +309,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
       line-height: 0;
       border-style: none !important;
     }
-}
+
     
 
 </style>
@@ -386,7 +383,7 @@ show up on all of your views, include it here -->
 
         <?php echo $this->Html->link('Profile setting',array('controller' => 'Users','action' => 'profile')); ?>        
 
-       <?php echo $this->Html->link('Logout',array('controller' => 'Tweets','action' => 'logout')); ?>
+       <?php echo $this->Html->link('Logout',array('controller' => 'Users','action' => 'logout')); ?>
       </div>
       <div id="effet_ombre"></div>
     </nav>                                    <!--FIN NAV-->
