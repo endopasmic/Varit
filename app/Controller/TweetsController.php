@@ -399,9 +399,8 @@ class TweetsController extends AppController{
 
                 }
 
-                echo "<script>alert('Delete complete')</script>";
 
-                $this->Session->setFlash('<script>alert("Delete Complete")</script>');
+                //$this->Session->setFlash('<script>alert("Delete Complete")</script>');
                 $this->redirect(array('action' => 'getTweet'));
 				 
 			}
@@ -430,7 +429,6 @@ class TweetsController extends AppController{
          )));
 
     }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 }// End class
