@@ -28,7 +28,7 @@ class TweetsController extends AppController{
 	public function getTweet()
 	{
 		//set
-		$this->layout = ('twitterlayout');
+        $this->layout = ('twitterlayout');
 		$username = $this->Session->read('username');
 		$this->set('username',$username);
 

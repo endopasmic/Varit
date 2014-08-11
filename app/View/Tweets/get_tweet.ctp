@@ -10,7 +10,7 @@
 
 </style>
 <script type="text/javascript">
-//load json 
+//create value for use
 var username;
 var user_regis;
 var follow_user;
