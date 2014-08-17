@@ -7,6 +7,9 @@ $(document).ready(function(){
 	$.getJSON("/CakePHP/Article/show.json", function(data){
 		
 		$.each(data.LocationJSON, function(key,value) {
+
+      Latitude = value.Location.Latitude;
+      Longitude = value.Location.Longitude;
 			
 		});//end each function	
 
@@ -29,7 +32,7 @@ function initialize() {
   // Try HTML5 geolocation
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(27.175015,78.042155);
+      var pos = new google.maps.LatLng(Latitude,Longitude);
 
       var infowindow = new google.maps.InfoWindow({
         map: map,

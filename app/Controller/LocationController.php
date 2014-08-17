@@ -40,6 +40,15 @@ class LocationController extends AppController{
 		}
 			
 	}
+
+	public function SearchLocation(){
+
+		if($this->request->is('post'))
+		{
+
+		}
+
+	}
 }
 
 
